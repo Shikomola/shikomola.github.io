@@ -1,73 +1,96 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Morning & Evening Grace</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#c9a84c;--gold-light:#e8d5a3;--blue-soft:#7ba7bc;--cream:#fdf8f0;--warm-white:#fffdf8;--text-dark:#3a3028;--text-mid:#6b5e52;--text-light:#9b8e82}
+:root{--gold:#d4a017;--gold-light:#f0c040;--gold-dark:#a87800;--blue:#1a6fa8;--blue-light:#4a9fd4;--green:#2a7a4a;--green-light:#4aaa6a;--cream:#fff8e8;--text-dark:#1a1208;--text-mid:#4a3820;--text-light:#8a7060}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Lato',sans-serif;background:var(--cream);min-height:100vh;color:var(--text-dark);overflow-x:hidden}
-.bg-canvas{position:fixed;inset:0;z-index:0;background:linear-gradient(160deg,#fdf6e3 0%,#e8f4f8 40%,#fdf0d5 100%)}
-.app-wrapper{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:24px 16px 60px;min-height:100vh;display:flex;flex-direction:column;gap:18px}
-.header{text-align:center;padding:28px 0 10px}
-.header .dove{font-size:2rem;margin-bottom:6px;display:block;animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.header h1{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text-dark);letter-spacing:.04em;line-height:1.2}
-.header h1 span{color:var(--gold);font-style:italic}
-.header .tagline{font-size:.78rem;color:var(--text-light);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
-.session-badge{display:inline-block;margin-top:12px;padding:4px 14px;border-radius:20px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
-.session-badge.morning{background:rgba(201,168,76,.15);color:#8a6f2e;border:1px solid rgba(201,168,76,.3)}
-.session-badge.evening{background:rgba(123,167,188,.15);color:#3d6e85;border:1px solid rgba(123,167,188,.3)}
-.date-display{font-size:.85rem;color:var(--text-mid);margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic}
-.card{background:rgba(255,253,248,.85);backdrop-filter:blur(8px);border-radius:18px;padding:24px 22px;border:1px solid rgba(201,168,76,.18);box-shadow:0 4px 24px rgba(60,45,30,.07);animation:fadeUp .6s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.card-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);font-weight:400;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.card-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(201,168,76,.3),transparent)}
-.verse-ref{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--gold);font-style:italic;margin-bottom:8px}
-.verse-text{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;line-height:1.55;color:var(--text-dark);font-style:italic}
-.explanation-text{font-size:.95rem;line-height:1.75;color:var(--text-mid);font-weight:300}
-.prayer-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.7;color:var(--text-dark);font-style:italic}
-.prayer-amen{display:block;text-align:right;margin-top:8px;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--gold);font-style:italic}
-.loading-state{text-align:center;padding:30px 0;color:var(--text-light);font-size:.88rem}
-.loading-dots span{display:inline-block;width:6px;height:6px;background:var(--gold);border-radius:50%;margin:0 3px;animation:dot-pulse 1.4s infinite ease-in-out}
+body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overflow-x:hidden}
+.bg-morning{position:fixed;inset:0;z-index:0;background:linear-gradient(160deg,#fff3c0 0%,#ffe090 30%,#ffcc60 60%,#ffaa20 100%)}
+.bg-evening{position:fixed;inset:0;z-index:0;background:linear-gradient(160deg,#1a2a4a 0%,#2a3a6a 30%,#1a4a5a 60%,#0a2030 100%);display:none}
+.app-wrapper{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:24px 16px 60px;min-height:100vh;display:flex;flex-direction:column;gap:16px}
+.header{text-align:center;padding:24px 0 8px}
+.header .dove{font-size:2.4rem;margin-bottom:8px;display:block;animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.header h1{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;letter-spacing:.02em;line-height:1.2}
+.header h1.morning-text{color:#3a2000}
+.header h1.evening-text{color:#e8f4ff}
+.header h1 span{font-style:italic}
+.morning-text span{color:var(--gold-dark)}
+.evening-text span{color:#4a9fd4}
+.tagline{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;font-weight:700}
+.morning-sub{color:#6a4820}
+.evening-sub{color:#a0c8e8}
+.session-badge{display:inline-block;margin-top:12px;padding:6px 18px;border-radius:20px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.badge-morning{background:linear-gradient(135deg,#d4a017,#f0c040);color:#3a2000}
+.badge-evening{background:linear-gradient(135deg,#2a3a6a,#1a6fa8);color:#e0f0ff}
+.date-display{font-size:.9rem;margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600}
+.morning-date{color:#6a4820}
+.evening-date{color:#a0c8e8}
+.card-morning{background:rgba(255,252,235,.97);border-radius:20px;padding:22px 20px;border:2px solid rgba(212,160,23,.3);box-shadow:0 6px 30px rgba(100,60,0,.12);animation:fadeUp .5s ease both}
+.card-evening{background:rgba(15,25,55,.92);border-radius:20px;padding:22px 20px;border:2px solid rgba(74,159,212,.35);box-shadow:0 6px 30px rgba(0,0,0,.4);animation:fadeUp .5s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.label-morning{font-size:.7rem;text-transform:uppercase;letter-spacing:.16em;font-weight:700;color:var(--gold-dark);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.label-morning::after{content:'';flex:1;height:2px;border-radius:2px;background:linear-gradient(to right,var(--gold),transparent)}
+.label-evening{font-size:.7rem;text-transform:uppercase;letter-spacing:.16em;font-weight:700;color:#4a9fd4;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.label-evening::after{content:'';flex:1;height:2px;border-radius:2px;background:linear-gradient(to right,#4a9fd4,transparent)}
+.verse-ref-m{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;margin-bottom:10px;font-weight:600;color:var(--gold-dark)}
+.verse-ref-e{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;margin-bottom:10px;font-weight:600;color:#4a9fd4}
+.verse-m{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;line-height:1.55;font-style:italic;color:#1a1208}
+.verse-e{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;line-height:1.55;font-style:italic;color:#e8f4ff}
+.explain-m{font-size:.93rem;line-height:1.78;font-weight:300;color:#4a3820}
+.explain-e{font-size:.93rem;line-height:1.78;font-weight:300;color:#c0d8f0}
+.prayer-m{font-family:'Cormorant Garamond',serif;font-size:1.12rem;line-height:1.72;font-style:italic;color:#1a1208}
+.prayer-e{font-family:'Cormorant Garamond',serif;font-size:1.12rem;line-height:1.72;font-style:italic;color:#e0f0ff}
+.amen-m{display:block;text-align:right;margin-top:10px;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;font-weight:600;color:var(--gold-dark)}
+.amen-e{display:block;text-align:right;margin-top:10px;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;font-weight:600;color:#4a9fd4}
+.loading-state{text-align:center;padding:28px 0;font-size:.88rem}
+.loading-dots span{display:inline-block;width:7px;height:7px;border-radius:50%;margin:0 3px;animation:dot-pulse 1.4s infinite ease-in-out}
+.dot-morning span{background:var(--gold)}
+.dot-evening span{background:#4a9fd4}
 .loading-dots span:nth-child(2){animation-delay:.2s}
 .loading-dots span:nth-child(3){animation-delay:.4s}
 @keyframes dot-pulse{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-.refresh-btn{width:100%;padding:14px;border:1px solid rgba(201,168,76,.35);background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(123,167,188,.08));border-radius:12px;font-family:'Lato',sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);cursor:pointer;transition:all .25s ease;display:flex;align-items:center;justify-content:center;gap:8px}
-.refresh-btn:hover{background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(123,167,188,.14));border-color:var(--gold);color:var(--text-dark)}
-.refresh-btn:disabled{opacity:.5;cursor:not-allowed}
-.reminder-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.refresh-btn{width:100%;padding:14px;border:2px solid rgba(212,160,23,.4);background:linear-gradient(135deg,rgba(212,160,23,.12),rgba(26,111,168,.08));border-radius:14px;font-family:'Lato',sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--text-mid);cursor:pointer;transition:all .25s ease;display:flex;align-items:center;justify-content:center;gap:8px}
+.refresh-btn:hover{border-color:var(--gold);color:var(--text-dark);transform:translateY(-1px)}
+.refresh-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.reminder-row{display:flex;gap:10px;flex-wrap:wrap}
 .reminder-block{flex:1;min-width:120px}
-.reminder-block label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-light);margin-bottom:5px}
-.reminder-block input[type="time"]{width:100%;padding:9px 12px;border:1px solid rgba(201,168,76,.25);border-radius:10px;background:rgba(255,253,248,.9);font-family:'Lato',sans-serif;font-size:.95rem;color:var(--text-dark);outline:none}
-.set-reminder-btn{padding:9px 18px;background:linear-gradient(135deg,var(--gold),#b8943f);border:none;border-radius:10px;color:white;font-family:'Lato',sans-serif;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:16px;box-shadow:0 2px 10px rgba(201,168,76,.25)}
-.reminder-status{font-size:.78rem;color:#5a8a5a;margin-top:8px;min-height:18px}
-.notif-note{font-size:.73rem;color:var(--text-light);margin-top:8px;line-height:1.5;padding:8px 10px;background:rgba(123,167,188,.08);border-radius:8px;border-left:2px solid rgba(123,167,188,.3)}
+.reminder-block label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:6px;color:var(--text-light)}
+.reminder-block input[type="time"]{width:100%;padding:10px 12px;border:2px solid rgba(212,160,23,.3);border-radius:10px;background:rgba(255,252,240,.9);font-family:'Lato',sans-serif;font-size:.95rem;color:var(--text-dark);outline:none;font-weight:700}
+.set-reminder-btn{padding:11px 20px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;border-radius:12px;color:white;font-family:'Lato',sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;cursor:pointer;margin-top:14px;box-shadow:0 4px 14px rgba(212,160,23,.4)}
+.reminder-status{font-size:.78rem;color:var(--green);margin-top:8px;min-height:18px;font-weight:700}
+.notif-note{font-size:.73rem;color:var(--text-light);margin-top:8px;line-height:1.55;padding:9px 12px;background:rgba(26,111,168,.08);border-radius:10px;border-left:3px solid #4a9fd4}
 .share-row{display:flex;gap:8px;flex-wrap:wrap}
-.share-btn{flex:1;min-width:100px;padding:10px 8px;border-radius:10px;border:1px solid rgba(201,168,76,.22);background:transparent;font-size:.75rem;color:var(--text-mid);cursor:pointer;transition:all .2s;text-align:center}
-.share-btn:hover{background:rgba(201,168,76,.09);border-color:var(--gold)}
-.support-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),#b8943f);border:none;border-radius:12px;color:white;font-family:'Lato',sans-serif;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 4px 16px rgba(201,168,76,.3);transition:all .25s ease}
-.support-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
-.footer{text-align:center;padding:16px 0 0;font-size:.7rem;color:var(--text-light);line-height:1.8}
-.footer a{color:var(--gold);text-decoration:none}
+.share-btn{flex:1;min-width:90px;padding:11px 8px;border-radius:12px;font-size:.76rem;font-weight:700;color:white;cursor:pointer;transition:all .2s;text-align:center;border:none}
+.btn-wa{background:linear-gradient(135deg,#25d366,#128c3e)}
+.btn-copy{background:linear-gradient(135deg,var(--gold),var(--gold-dark))}
+.btn-fb{background:linear-gradient(135deg,#1877f2,#0d5db8)}
+.share-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.support-btn{display:block;width:100%;padding:15px;background:linear-gradient(135deg,var(--green),var(--green-light));border:none;border-radius:14px;color:white;font-family:'Lato',sans-serif;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 4px 18px rgba(42,122,74,.35)}
+.support-btn:hover{transform:translateY(-2px)}
+.footer{text-align:center;padding:16px 0 0;font-size:.72rem;color:var(--text-light);line-height:1.9}
+.footer a{color:var(--gold-dark);text-decoration:none;font-weight:700}
 .spin{display:inline-block;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-<div class="bg-canvas"></div>
+<div class="bg-morning" id="bgMorning"></div>
+<div class="bg-evening" id="bgEvening"></div>
 <div class="app-wrapper">
 <div class="header">
 <span class="dove">🕊️</span>
-<h1>Morning & Evening <span>Grace</span></h1>
-<p class="tagline">Daily Spiritual Encouragement · NIV</p>
-<span class="session-badge" id="sessionBadge">Loading...</span>
-<p class="date-display" id="dateDisplay"></p>
+<h1 class="morning-text" id="mainTitle">Morning & Evening <span>Grace</span></h1>
+<p class="tagline morning-sub" id="tagline">Daily Spiritual Encouragement · NIV</p>
+<span class="session-badge badge-morning" id="sessionBadge">Loading...</span>
+<p class="date-display morning-date" id="dateDisplay"></p>
 </div>
-<div class="card">
-<div class="card-label">🔔 Reminder Times</div>
+<div class="card-morning" id="reminderCard">
+<div class="label-morning">🔔 Reminder Times</div>
 <div class="reminder-row">
 <div class="reminder-block"><label>🌅 Morning</label><input type="time" id="morningTime" value="06:00"></div>
 <div class="reminder-block"><label>🌙 Evening</label><input type="time" id="eveningTime" value="18:00"></div>
@@ -76,474 +99,159 @@ body{font-family:'Lato',sans-serif;background:var(--cream);min-height:100vh;colo
 <div class="reminder-status" id="reminderStatus"></div>
 <div class="notif-note" id="notifNote">💡 Click Save My Reminder Times then allow notifications when your browser asks.</div>
 </div>
-<div id="contentArea"><div class="card"><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px">Preparing your encouragement…</p></div></div></div>
+<div id="contentArea"><div class="card-morning"><div class="loading-state"><div class="loading-dots dot-morning"><span></span><span></span><span></span></div><p style="margin-top:12px;color:#6a4820">Preparing your encouragement…</p></div></div></div>
 <button class="refresh-btn" id="refreshBtn" onclick="loadContent()" disabled><span id="refreshIcon">✦</span> New Verse & Prayer</button>
-<div class="card" id="shareCard" style="display:none">
-<div class="card-label">💌 Share Today's Grace</div>
+<div class="card-morning" id="shareCard" style="display:none">
+<div class="label-morning" id="shareLabel">💌 Share Today's Grace</div>
 <div class="share-row">
-<button class="share-btn" onclick="shareWhatsApp()">📱 WhatsApp</button>
-<button class="share-btn" onclick="copyText()">📋 Copy Text</button>
-<button class="share-btn" onclick="shareFacebook()">🌐 Facebook</button>
+<button class="share-btn btn-wa" onclick="shareWhatsApp()">📱 WhatsApp</button>
+<button class="share-btn btn-copy" onclick="copyText()">📋 Copy</button>
+<button class="share-btn btn-fb" onclick="shareFacebook()">🌐 Facebook</button>
 </div>
 </div>
-<div class="card" style="animation-delay:0.5s">
-<div class="card-label">☕ Support This Ministry</div>
-<p style="font-size:.85rem;color:var(--text-mid);margin-bottom:14px;line-height:1.6">If this devotional has blessed you, consider supporting us to keep it free for everyone. Every contribution matters! 🙏</p>
-<a href="https://ko-fi.com/morningeveninggrace" target="_blank" class="support-btn">☕ Buy Me a Coffee · Support This Ministry</a>
+<div class="card-morning" id="supportCard">
+<div class="label-morning">☕ Support This Ministry</div>
+<p style="font-size:.85rem;color:#4a3820;margin-bottom:14px;line-height:1.65">If this devotional has blessed you today, consider supporting us to keep it free for everyone. Every contribution matters! 🙏</p>
+<a href="https://ko-fi.com/morningeveninggrace" target="_blank" class="support-btn">☕ Support This Ministry on Ko-fi</a>
 </div>
 <div class="footer">Morning & Evening Grace · Built with ❤️ for busy souls<br><a href="https://ko-fi.com/morningeveninggrace" target="_blank">Support This Ministry</a></div>
 </div>
 <script>
 var currentContent=null;
 var scheduledAlarms={};
-var devotionals=[
-{reference:"Psalm 143:8",verse:"Let the morning bring me word of your unfailing love, for I have put my trust in you. Show me the way I should go, for to you I entrust my life.",explanation:"Every morning is a fresh invitation from God to receive His love before anything else touches your day. Before the demands, the worries, and the noise begin, God is already speaking — and what He speaks is love. Today, no matter what lies ahead, you walk into it held by Someone who knows every detail of your situation and has not stopped loving you for a single moment. Trust Him with the path you cannot yet see.",prayer:"Lord, as this morning begins I choose to receive Your love before anything else. I do not know everything this day holds, but You do. Show me the right path and give me the courage to follow it. I entrust this day entirely into Your hands. Thank You that Your love never fails."},
-{reference:"Isaiah 40:31",verse:"But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",explanation:"God never promised that life would be effortless, but He promised something far better — that when our strength runs out, His strength takes over. Waiting on God is not passive resignation; it is active trust that repositions your soul to receive what only He can give. The eagle does not flap harder to rise — it opens its wings and lets the wind carry it. Today, open yourself to God's strength and let Him carry you.",prayer:"Father, I am honest with You — I feel weary. The demands of life have taken more than I expected. But Your Word says those who wait on You will rise again. I choose to wait on You today. Renew my strength, lift me above my circumstances, and carry me through this day on Your power, not my own."},
-{reference:"Lamentations 3:22-23",verse:"Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.",explanation:"Whatever yesterday held — its failures, its grief, its disappointments — this morning carries a gift that yesterday could not bring: new mercies. God does not ration His compassion based on how well you performed. He simply opens a fresh supply every single morning because that is who He is. You are starting today not with yesterday's leftovers but with brand new grace. Receive it.",prayer:"Thank You Lord for new mercies this morning. I release yesterday — its mistakes, its pain, and its unfinished worries. Today I stand in Your fresh compassion and Your great faithfulness. Help me to live fully in this new day, knowing that Your grace is sufficient for every moment I will face."},
-{reference:"Philippians 4:6-7",verse:"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",explanation:"God does not tell us to stop worrying by simply trying harder — He gives us something specific to do instead: pray, with thanksgiving. Gratitude shifts our focus from what we lack to what we already have, and prayer moves the weight off our shoulders and onto His. The peace that follows is a supernatural calm that does not make logical sense, standing guard over your heart like a soldier at the gate.",prayer:"Lord, I bring You every worry I am carrying right now. I name them honestly before You and I choose to leave them in Your hands. I thank You for the ways You have already provided and already been faithful. Guard my heart today with Your peace that goes beyond my understanding. Let me rest in You."},
-{reference:"Joshua 1:9",verse:"Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",explanation:"God does not say be strong because the road is easy. He says be strong because I am with you. The courage God calls us to is not the absence of fear — it is moving forward in faith while fear is still present, knowing that the One who goes with you is greater than anything you will face. You are not alone in the difficult places. God's presence goes ahead of you, stands beside you, and covers your back.",prayer:"God, there are things ahead of me that make me afraid. But You have commanded me not to be discouraged, and You have backed that command with Your presence. I choose courage today — not because I feel brave, but because You are with me. Go before me into every situation I face today."},
-{reference:"Matthew 11:28-29",verse:"Come to me, all you who are weary and burdened, and I will give you rest. Take my yoke upon you and learn from me, for I am gentle and humble in heart, and you will find rest for your souls.",explanation:"Jesus does not say come to me when you have sorted yourself out — He calls the weary and the burdened, exactly as they are. The rest He offers is not just physical rest but rest for the soul — that deep inner quietness that comes when you stop carrying alone what was never meant for one person to carry. Today, whatever is weighing on you, you have an open invitation to bring it directly to Jesus.",prayer:"Jesus, I come to You exactly as I am — tired, perhaps uncertain, carrying more than feels comfortable. You said You would give rest to the weary and I am choosing to believe that promise today. I lay down my heavy load at Your feet. Let my soul find the rest that only You can give."},
-{reference:"Romans 8:28",verse:"And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",explanation:"This verse does not promise that all things are good — it promises that God works all things together for good. The painful chapter you are living through right now is not the final chapter. God is a master at taking the broken pieces of our stories and weaving them into something beautiful. Nothing in your life is wasted in His hands — not the losses, not the setbacks, not even the mistakes.",prayer:"Lord, I do not always understand what You are doing. There are parts of my story that are painful and confusing. But I choose to trust that You are working — even now, even here — for my good. I love You and I rest in the confidence that You have not lost the plot of my life."},
-{reference:"Psalm 23:1-3",verse:"The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul.",explanation:"A shepherd does not drive the sheep — he leads them. And the first thing this shepherd does is ensure that you lack nothing and that your soul is refreshed. In the busyness of life we so easily deplete ourselves, running from task to task until we are hollow. Today, your Shepherd invites you to stop, to follow His leading to a place of quiet, and to let your soul be genuinely restored.",prayer:"Good Shepherd, lead me today. In the noise and the rushing, remind me to follow Your voice to the quiet places where my soul can breathe. I trust that under Your care I lack nothing that truly matters. Refresh me today and lead me in the right paths for Your name's sake."},
-{reference:"Proverbs 3:5-6",verse:"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",explanation:"Our own understanding has a limited view — it sees only what is visible and only what has happened so far. God's understanding encompasses the whole story, including the chapters not yet written. Leaning on our own understanding is like navigating with a partial map. Trusting God is choosing the Guide who knows every turn ahead.",prayer:"Father, today I choose deliberately to trust You with my whole heart. In the decisions I face, the uncertainties I carry, and the paths I cannot yet see — I submit them all to You. Make my paths straight. I choose Your wisdom over my own."},
-{reference:"2 Corinthians 12:9",verse:"But he said to me, My grace is sufficient for you, for my power is made perfect in weakness. Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me.",explanation:"The places where we feel most insufficient are often the very places where God's power shows up most clearly. When we reach the end of what we can do, we finally create space for what God can do. Your weakness today is not a disqualification — it is an invitation for God's power to be displayed in your situation. His grace is genuinely enough.",prayer:"Lord, I acknowledge my weakness honestly before You. I cannot do this in my own strength. But Your Word says Your power is made perfect in weakness, and I am asking You to prove that true in my life today. Let Your grace cover every gap and let Your power rest on me."},
-{reference:"Psalm 46:10",verse:"He says, Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.",explanation:"In a world that rewards constant activity, God issues a countercultural command: be still. Not passive, not defeated — but deliberately, confidently quiet in the knowledge of who He is. When everything around you feels uncertain and out of control, the steadying truth is that God is still God. He has not been displaced, surprised, or overwhelmed.",prayer:"God, I choose stillness right now. I quiet the noise in my mind and I acknowledge that You are God. Nothing that has happened has caught You off guard. Nothing I face has exceeded Your power. Still my anxious heart and fill me with the peace of knowing You are in control."},
-{reference:"John 16:33",verse:"I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world.",explanation:"Jesus was refreshingly honest — He did not promise a trouble-free life. But He promised something far more powerful: peace in the middle of trouble, and a Saviour who has already overcome the very world that troubles us. Whatever you are facing today, you face it as someone on the winning side.",prayer:"Jesus, thank You that You have overcome this world. I take heart today. I face my challenges not as someone abandoned or defeated, but as someone standing with the Victor. Let Your peace be real and present in my heart right now."},
-{reference:"Psalm 121:1-2",verse:"I lift up my eyes to the mountains — where does my help come from? My help comes from the Lord, the Maker of heaven and earth.",explanation:"When we face mountains — towering problems, impossible situations — the question is always the same: where does our help come from? The psalmist answers with beautiful confidence: from the Lord, the very One who made those mountains. The God you are praying to created everything you can see and everything you cannot. No problem you face is larger than its Creator.",prayer:"Lord, I lift my eyes to You. The mountains in my life feel large, but You made them and You are greater. My help comes from You — not from my own efforts, not from circumstances changing. From You alone. I trust You with every mountain I cannot move on my own."},
-{reference:"Ephesians 3:20",verse:"Now to him who is able to do immeasurably more than all we ask or imagine, according to his power that is at work within us.",explanation:"Our prayers are limited by our imagination — but God is not limited by our prayers. He is able to do immeasurably more than anything our minds can construct. This is a call to hold our prayers with open hands, knowing that God's answer may be bigger, better, and more wonderful than what we asked for.",prayer:"God, tonight I bring You my requests and I hold them with open hands, trusting that Your answer will exceed my asking. Do immeasurably more in my life and circumstances than I have dared to believe. To You be the glory."},
-{reference:"Psalm 4:8",verse:"In peace I will lie down and sleep, for you alone, Lord, make me dwell in safety.",explanation:"As the evening comes and the day's concerns press in, God invites you into something rare and precious: genuine peace at rest. Sleep is an act of trust — it is releasing the day and acknowledging that while you rest, God watches. You do not need to solve everything tonight. The same God who held you through today will hold everything through the night.",prayer:"Lord, as this day ends I release it to You — the things that went well and the things that did not. You alone make me dwell in safety. Tonight I choose to trust You with everything I cannot control. Guard my sleep and let me rest knowing You never stop watching over those You love."}
+var morningDevotionals=[
+{reference:"Lamentations 3:22-23",verse:"Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.",explanation:"What a way to begin the day — with the reminder that God's mercies arrived fresh this morning, just for you. Yesterday's failures do not carry into today's grace. Whatever weight you woke up with, God's compassion is greater. His faithfulness is not dependent on your performance — it is rooted in who He is. Step into this day knowing you are already covered.",prayer:"Thank You Lord for new mercies this morning. I release everything from yesterday — the mistakes, the worries, the unfinished burdens. Today I stand in Your fresh compassion. Help me to walk through this day in the confidence of Your faithfulness. You have never failed me and You will not start today."},
+{reference:"Psalm 143:8",verse:"Let the morning bring me word of your unfailing love, for I have put my trust in you. Show me the way I should go, for to you I entrust my life.",explanation:"Before the day's demands arrive, the psalmist makes one simple request — let love be the first thing I receive. This is the right order. When we begin with God's love rather than our to-do list, everything else finds its proper place. You can trust Him with the direction of this day. He knows every road ahead and He will show you the way.",prayer:"Lord, let Your unfailing love be the first thing I receive this morning before anything else. I put my trust in You for every decision and direction this day holds. I do not know everything ahead but You do. Show me the way I should go and I will follow. My life is in Your hands."},
+{reference:"Isaiah 40:31",verse:"But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",explanation:"Whatever tiredness you brought into this morning — God has a promise for you. Those who wait on Him receive a supernatural exchange: their weakness for His strength. The eagle does not strain to rise — it simply opens its wings to the wind. Open yourself to God's strength today and let Him carry you through whatever lies ahead.",prayer:"Father, I come to this morning honest about my tiredness. But Your Word says those who hope in You will renew their strength and I am choosing to believe that right now. Fill me with Your energy today. Let me soar above my challenges on Your strength, not my own. I open my heart to You this morning."},
+{reference:"Joshua 1:9",verse:"Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",explanation:"God speaks these words to you this morning as personally as He spoke them to Joshua. Be strong — not because today will be easy, but because you will not face it alone. Whatever challenges this day holds, whatever feels overwhelming, the Lord your God will be with you in every single moment. That changes everything.",prayer:"God, I receive Your command this morning — be strong and courageous. I choose not to be afraid of what this day holds. Not because it will be easy but because You will be with me wherever I go today. Walk with me through every challenge, every moment. I will not face this day alone."},
+{reference:"Psalm 5:3",verse:"In the morning, Lord, you hear my voice; in the morning I lay my requests before you and wait expectantly.",explanation:"Morning prayer is not a ritual — it is a relationship. Bring everything to God first thing, then wait expectantly. Not anxiously, not doubtfully, but with the quiet confidence of someone who knows they have been heard. God heard your voice this morning before you even spoke. Bring Him your requests and wait — He is already working.",prayer:"Lord, I bring You my requests this morning before I bring them to anyone else. You hear my voice and that is enough. I lay before You everything on my heart today — the needs, the hopes, the uncertainties. Now I wait expectantly, knowing You are already at work on my behalf. Thank You for hearing me."},
+{reference:"Proverbs 3:5-6",verse:"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",explanation:"This morning you will face decisions — some small, some significant. The wisdom for all of them is the same: trust God more than your own reasoning. Our understanding is limited by what we can see, but God sees the whole picture. Submit your plans to Him today and watch how He straightens the paths that looked crooked to you.",prayer:"Father, this morning I choose to trust You with my whole heart. In every decision I face today I will submit to You rather than leaning only on my own understanding. My understanding is limited but Yours is not. Make my paths straight today. I trust You with the outcomes of everything I do."},
+{reference:"Psalm 118:24",verse:"The Lord has done it this very day; let us rejoice today and be glad.",explanation:"This is the day — not yesterday with its regrets, not tomorrow with its unknowns — this very day that the Lord has made. There is something specific God has prepared in this day that you will only find by being fully present in it. Joy is a choice made in the morning, before the day unfolds, because the Lord has already been at work.",prayer:"Lord, this is the day You have made and I choose to rejoice in it. Before I know how it will unfold, I choose gladness because You are in it. Open my eyes today to see the gifts You have placed in ordinary moments. Let me not miss what You have prepared for this day."}
 ];
-function getSession(){var h=new Date().getHours();return h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':'evening'}
-function updateSessionBadge(){var badge=document.getElementById('sessionBadge');var s=getSession();var now=new Date();var t=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(s==='morning'){badge.textContent='🌅 Good Morning · '+t;badge.className='session-badge morning'}else if(s==='afternoon'){badge.textContent='☀️ Good Afternoon · '+t;badge.className='session-badge morning'}else{badge.textContent='🌙 Good Evening · '+t;badge.className='session-badge evening'}}
-updateSessionBadge();
-setInterval(updateSessionBadge,60000);
-function updateDateDisplay(){var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];var months=['January','February','March','April','May','June','July','August','September','October','November','December'];var now=new Date();var day=days[now.getDay()];var date=now.getDate();var month=months[now.getMonth()];var year=now.getFullYear();var suffix=date===1||date===21||date===31?'st':date===2||date===22?'nd':date===3||date===23?'rd':'th';var el=document.getElementById('dateDisplay');if(el)el.textContent=day+', '+date+suffix+' '+month+' '+year}
-updateDateDisplay();
-function getTodaysDevotional(session){var now=new Date();var seed=now.getFullYear()*1000+now.getMonth()*31+now.getDate()+(session==='morning'?0:7);return devotionals[seed%devotionals.length]}
-function loadContent(){var btn=document.getElementById('refreshBtn');var icon=document.getElementById('refreshIcon');btn.disabled=true;icon.className='spin';icon.textContent='↻';var session=getSession();document.getElementById('contentArea').innerHTML='<div class="card"><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px">Seeking your encouragement…</p></div></div>';document.getElementById('shareCard').style.display='none';setTimeout(function(){var parsed=getTodaysDevotional(session);currentContent=parsed;renderContent(parsed,session);btn.disabled=false;icon.className='';icon.textContent='✦';document.getElementById('shareCard').style.display='block'},1200)}
-function renderContent(data,session){document.getElementById('contentArea').innerHTML='<div class="card" style="animation-delay:0.1s"><div class="card-label">📖 Today\'s Verse</div><div class="verse-ref">'+data.reference+' · NIV</div><div class="verse-text">'+data.verse+'</div></div><div class="card" style="animation-delay:0.2s"><div class="card-label">💛 Reflection</div><div class="explanation-text">'+data.explanation+'</div></div><div class="card" style="animation-delay:0.3s"><div class="card-label">🙏 Prayer</div><div class="prayer-text">'+data.prayer+'</div><span class="prayer-amen">— Amen</span></div>'}
-function setReminders(){var m=document.getElementById('morningTime').value;var e=document.getElementById('eveningTime').value;var s=document.getElementById('reminderStatus');var n=document.getElementById('notifNote');if(!m||!e){s.textContent='⚠️ Please set both times.';return}if('Notification' in window){Notification.requestPermission().then(function(p){if(p==='granted'){localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e);scheduleNotifications(m,e);s.style.color='#5a8a5a';s.textContent='✓ Reminders set: Morning '+formatTime(m)+', Evening '+formatTime(e);n.textContent='✅ Notifications active! Keep this tab open for reminders to work.'}else{s.style.color='#b05555';s.textContent='⚠️ Notifications blocked. Please enable in browser settings.'}})}else{s.textContent='📱 Set a phone alarm to visit this app at your chosen times!';localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e)}}
-function scheduleNotifications(m,e){Object.values(scheduledAlarms).forEach(clearTimeout);scheduledAlarms={};function schedule(timeStr,label,emoji){var parts=timeStr.split(':');var h=parseInt(parts[0]);var min=parseInt(parts[1]);var now=new Date();var target=new Date(now.getFullYear(),now.getMonth(),now.getDate(),h,min,0);if(target<=now)target.setDate(target.getDate()+1);var ms=target-now;scheduledAlarms[label]=setTimeout(function(){new Notification('🕊️ Morning & Evening Grace',{body:'It\'s your '+label+' time. Open the app for today\'s verse & prayer 🙏',tag:'grace-'+label});scheduledAlarms[label]=setTimeout(function(){schedule(timeStr,label,emoji)},86400000)},ms)}schedule(m,'morning','🌅');schedule(e,'evening','🌙')}
+var eveningDevotionals=[
+{reference:"Psalm 4:8",verse:"In peace I will lie down and sleep, for you alone, Lord, make me dwell in safety.",explanation:"As this day draws to a close, God offers you something the world cannot give — genuine peace at rest. Sleep is one of the most profound acts of trust a person can perform. It is saying: I cannot control what happens while I am unconscious, so I place everything in God's hands. You do not need to solve anything tonight. The same God who held you through today will hold everything through the night.",prayer:"Lord, as this day ends I release it completely to You — the things that went well and the things that did not, the worries still unresolved and the questions still unanswered. You alone make me dwell in safety. Guard my sleep tonight. Let me rest in the deep peace that comes from knowing You never sleep and You never stop watching over those You love."},
+{reference:"Psalm 23:1-3",verse:"The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul.",explanation:"After the demands and noise of the day, your Shepherd is calling you to a quiet place. He wants to refresh the parts of you that today depleted. This is not weakness — it is wisdom. Let your Shepherd lead you beside quiet waters tonight and let your soul be genuinely restored. You lack nothing under His care.",prayer:"Good Shepherd, the day has taken much from me and now I come to You for restoration. Lead me beside quiet waters tonight. Refresh my soul from the inside out. I trust that under Your care I lack nothing that truly matters. Let me lie down in green pastures and rise tomorrow renewed."},
+{reference:"Matthew 11:28-29",verse:"Come to me, all you who are weary and burdened, and I will give you rest. Take my yoke upon you and learn from me, for I am gentle and humble in heart, and you will find rest for your souls.",explanation:"Jesus says these words to you tonight, knowing exactly what kind of day you have had. He does not ask you to come cleaned up or with your burdens already managed. He invites you as you are — weary, carrying more than is comfortable. The rest He offers goes deeper than sleep. It is rest for the soul.",prayer:"Jesus, I come to You tonight exactly as I am — tired and carrying the weight of the day. You promised rest to the weary and I am claiming that promise right now. Take from me everything that is too heavy. Let my soul find the deep rest that only You can give. Let tomorrow begin from a place of genuine peace."},
+{reference:"Philippians 4:6-7",verse:"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",explanation:"Do not take tomorrow's worries to bed with you tonight. Instead, bring them to God right now — name them honestly, add thanksgiving for what He has already done, and leave them in His hands. The peace that follows is supernatural. It will stand guard over your heart like a soldier through the night.",prayer:"Lord, before I sleep I bring You everything that is worrying me tonight. I name each one honestly before You and I choose to leave them in Your hands. I thank You for how faithful You have been today. Now give me Your supernatural peace that guards my heart perfectly. I trust You with tonight and tomorrow."},
+{reference:"Psalm 121:5-8",verse:"The Lord watches over you — the Lord is your shade at your right hand; the sun will not harm you by day, nor the moon by night. The Lord will keep you from all harm — he will watch over your life.",explanation:"As you prepare to sleep, here is the most comforting truth you can carry into the night: God does not sleep. While you rest, He watches. His eyes are on you, on your household, on everything that concerns you. The God who created the universe considers watching over you His personal responsibility.",prayer:"Lord, what a comfort to know that You watch over me while I sleep. You never close Your eyes or grow tired of guarding those You love. Watch over me and everyone in my home tonight. Keep us from all harm. I rest in the certainty that Your eyes are on us through every hour of darkness until morning comes again."},
+{reference:"John 16:33",verse:"I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world.",explanation:"Whatever trouble today brought — and perhaps it brought much — Jesus has already overcome it. You end this day not as someone defeated but as someone standing with the Victor. Every difficulty you faced today was faced in the company of the One who has overcome the very world that brings those difficulties.",prayer:"Jesus, thank You for the reminder that You have overcome this world. Whatever trouble today brought, it did not have the final word — You do. I end this day in Your victory. Whatever I face tomorrow, I face it with You. Let me sleep tonight in the peace of knowing the Victor is on my side."},
+{reference:"Lamentations 3:22-23",verse:"Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.",explanation:"As tonight ends, here is the most wonderful promise to carry into sleep: when you wake tomorrow, there will be fresh mercies waiting for you. Whatever happened today — the failures, the frustrations — God's compassion outlasts all of it. His faithfulness means tomorrow morning brings a completely new supply of grace.",prayer:"Father, as this day ends I am grateful that Your compassions never fail and Your mercies are new every morning. Whatever went wrong today does not define tomorrow. I rest tonight in the certainty of Your faithfulness — that when I wake, fresh grace will be waiting. Great is Your faithfulness, Lord. I trust You with the night and with tomorrow."}
+];
+function getSession(){var h=new Date().getHours();return h>=5&&h<12?'morning':h>=12&&h<17?'afternoon':'evening'}
+function isEvening(){return getSession()==='evening'}
+function updateTheme(){
+var ev=isEvening();
+document.getElementById('bgMorning').style.display=ev?'none':'block';
+document.getElementById('bgEvening').style.display=ev?'block':'none';
+var title=document.getElementById('mainTitle');
+var tag=document.getElementById('tagline');
+var dd=document.getElementById('dateDisplay');
+if(ev){title.className='evening-text';tag.className='tagline evening-sub';dd.className='date-display evening-date'}
+else{title.className='morning-text';tag.className='tagline morning-sub';dd.className='date-display morning-date'}
+}
+function updateSessionBadge(){
+var badge=document.getElementById('sessionBadge');
+var s=getSession();
+var now=new Date();
+var t=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+if(s==='morning'){badge.textContent='🌅 Good Morning · '+t;badge.className='session-badge badge-morning'}
+else if(s==='afternoon'){badge.textContent='☀️ Good Afternoon · '+t;badge.className='session-badge badge-morning'}
+else{badge.textContent='🌙 Good Evening · '+t;badge.className='session-badge badge-evening'}
+}
+function updateDateDisplay(){
+var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var now=new Date();
+var day=days[now.getDay()];var date=now.getDate();var month=months[now.getMonth()];var year=now.getFullYear();
+var suffix=date===1||date===21||date===31?'st':date===2||date===22?'nd':date===3||date===23?'rd':'th';
+var el=document.getElementById('dateDisplay');
+if(el)el.textContent=day+', '+date+suffix+' '+month+' '+year;
+}
+function getTodaysDevotional(){
+var now=new Date();
+var seed=now.getFullYear()*1000+now.getMonth()*31+now.getDate();
+if(isEvening())return eveningDevotionals[seed%eveningDevotionals.length];
+return morningDevotionals[seed%morningDevotionals.length];
+}
+function getCardClass(){return isEvening()?'card-evening':'card-morning'}
+function getLabelClass(){return isEvening()?'label-evening':'label-morning'}
+function loadContent(){
+var btn=document.getElementById('refreshBtn');var icon=document.getElementById('refreshIcon');
+btn.disabled=true;icon.className='spin';icon.textContent='↻';
+var ev=isEvening();
+var cc=getCardClass();
+var dotClass='loading-dots '+(ev?'dot-evening':'dot-morning');
+var textColor=ev?'#a0c8e8':'#6a4820';
+document.getElementById('contentArea').innerHTML='<div class="'+cc+'"><div class="loading-state"><div class="'+dotClass+'"><span></span><span></span><span></span></div><p style="margin-top:12px;color:'+textColor+'">Seeking your '+(ev?'evening':'morning')+' encouragement…</p></div></div>';
+document.getElementById('shareCard').style.display='none';
+setTimeout(function(){
+var parsed=getTodaysDevotional();
+currentContent=parsed;
+renderContent(parsed);
+btn.disabled=false;icon.className='';icon.textContent='✦';
+document.getElementById('shareCard').style.display='block';
+document.getElementById('shareCard').className=cc;
+var sl=document.getElementById('shareLabel');if(sl)sl.className=getLabelClass();
+document.getElementById('supportCard').className=cc;
+},1200);
+}
+function renderContent(data){
+var ev=isEvening();var cc=getCardClass();var lc=getLabelClass();
+var vr=ev?'verse-ref-e':'verse-ref-m';var vt=ev?'verse-e':'verse-m';
+var ex=ev?'explain-e':'explain-m';var pr=ev?'prayer-e':'prayer-m';var am=ev?'amen-e':'amen-m';
+var session=ev?'Evening':'Morning';
+document.getElementById('contentArea').innerHTML=
+'<div class="'+cc+'" style="animation-delay:0.1s"><div class="'+lc+'">📖 '+session+' Verse</div><div class="'+vr+'">'+data.reference+' · NIV</div><div class="'+vt+'">'+data.verse+'</div></div>'+
+'<div class="'+cc+'" style="animation-delay:0.2s"><div class="'+lc+'">💛 Reflection</div><div class="'+ex+'">'+data.explanation+'</div></div>'+
+'<div class="'+cc+'" style="animation-delay:0.3s"><div class="'+lc+'">🙏 Prayer</div><div class="'+pr+'">'+data.prayer+'</div><span class="'+am+'">— Amen</span></div>';
+}
+function setReminders(){
+var m=document.getElementById('morningTime').value;var e=document.getElementById('eveningTime').value;
+var s=document.getElementById('reminderStatus');var n=document.getElementById('notifNote');
+if(!m||!e){s.textContent='⚠️ Please set both times.';return}
+if('Notification' in window){
+Notification.requestPermission().then(function(p){
+if(p==='granted'){
+localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e);
+scheduleNotifications(m,e);
+s.textContent='✓ Reminders set: Morning '+formatTime(m)+', Evening '+formatTime(e);
+n.textContent='✅ Notifications active! Keep this tab open for reminders to work.';
+}else{s.style.color='#b05555';s.textContent='⚠️ Notifications blocked. Please enable in browser settings.';}
+});
+}else{s.textContent='📱 Set a phone alarm to visit at your chosen times!';localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e);}
+}
+function scheduleNotifications(m,e){
+Object.values(scheduledAlarms).forEach(clearTimeout);scheduledAlarms={};
+function schedule(timeStr,label){
+var parts=timeStr.split(':');var h=parseInt(parts[0]);var min=parseInt(parts[1]);
+var now=new Date();var target=new Date(now.getFullYear(),now.getMonth(),now.getDate(),h,min,0);
+if(target<=now)target.setDate(target.getDate()+1);
+var ms=target-now;
+scheduledAlarms[label]=setTimeout(function(){
+new Notification('🕊️ Morning & Evening Grace',{body:'It\'s your '+label+' time. Open the app for today\'s verse & prayer 🙏',tag:'grace-'+label});
+scheduledAlarms[label]=setTimeout(function(){schedule(timeStr,label)},86400000);
+},ms);
+}
+schedule(m,'morning');schedule(e,'evening');
+}
 function formatTime(t){var parts=t.split(':');var h=parseInt(parts[0]);var m=parts[1];var ampm=h>=12?'PM':'AM';var h12=h%12||12;return h12+':'+m+' '+ampm}
-function buildShareText(){if(!currentContent)return'';return'🕊️ Morning & Evening Grace\n\n📖 '+currentContent.reference+' (NIV)\n"'+currentContent.verse+'"\n\n💛 '+currentContent.explanation+'\n\n🙏 '+currentContent.prayer+'\n\n— Amen\n\nGet your free daily encouragement: https://shikomola.github.io'}
+function buildShareText(){
+if(!currentContent)return'';
+var session=isEvening()?'Evening':'Morning';
+return'🕊️ Morning & Evening Grace\n\n📖 '+currentContent.reference+' (NIV)\n"'+currentContent.verse+'"\n\n💛 '+currentContent.explanation+'\n\n🙏 '+currentContent.prayer+'\n\n— Amen\n\nFree daily '+session.toLowerCase()+' devotional: https://shikomola.github.io';
+}
 function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(buildShareText()),'_blank')}
 function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('https://shikomola.github.io'),'_blank')}
-function copyText(){navigator.clipboard.writeText(buildShareText()).then(function(){var btn=event.target;btn.textContent='✓ Copied!';setTimeout(function(){btn.textContent='📋 Copy Text'},2000)})}
-function restoreSavedTimes(){var m=localStorage.getItem('grace_morning');var e=localStorage.getItem('grace_evening');if(m)document.getElementById('morningTime').value=m;if(e)document.getElementById('eveningTime').value=e;if(m&&e&&Notification.permission==='granted'){scheduleNotifications(m,e);document.getElementById('reminderStatus').textContent='✓ Reminders active: Morning '+formatTime(m)+', Evening '+formatTime(e)}}
-restoreSavedTimes();
-loadContent();
-</script>
-</body>
-</html>!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morning & Evening Grace</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-<style>
-:root{--gold:#c9a84c;--gold-light:#e8d5a3;--blue-soft:#7ba7bc;--cream:#fdf8f0;--warm-white:#fffdf8;--text-dark:#3a3028;--text-mid:#6b5e52;--text-light:#9b8e82}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Lato',sans-serif;background:var(--cream);min-height:100vh;color:var(--text-dark);overflow-x:hidden}
-.bg-canvas{position:fixed;inset:0;z-index:0;background:linear-gradient(160deg,#fdf6e3 0%,#e8f4f8 40%,#fdf0d5 100%)}
-.app-wrapper{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:24px 16px 60px;min-height:100vh;display:flex;flex-direction:column;gap:18px}
-.header{text-align:center;padding:28px 0 10px}
-.header .dove{font-size:2rem;margin-bottom:6px;display:block;animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.header h1{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text-dark);letter-spacing:.04em;line-height:1.2}
-.header h1 span{color:var(--gold);font-style:italic}
-.header .tagline{font-size:.78rem;color:var(--text-light);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
-.session-badge{display:inline-block;margin-top:12px;padding:4px 14px;border-radius:20px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
-.session-badge.morning{background:rgba(201,168,76,.15);color:#8a6f2e;border:1px solid rgba(201,168,76,.3)}
-.session-badge.evening{background:rgba(123,167,188,.15);color:#3d6e85;border:1px solid rgba(123,167,188,.3)}
-.date-display{font-size:.85rem;color:var(--text-mid);margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic}
-.card{background:rgba(255,253,248,.85);backdrop-filter:blur(8px);border-radius:18px;padding:24px 22px;border:1px solid rgba(201,168,76,.18);box-shadow:0 4px 24px rgba(60,45,30,.07);animation:fadeUp .6s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.card-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);font-weight:400;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.card-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(201,168,76,.3),transparent)}
-.verse-ref{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--gold);font-style:italic;margin-bottom:8px}
-.verse-text{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;line-height:1.55;color:var(--text-dark);font-style:italic}
-.explanation-text{font-size:.95rem;line-height:1.75;color:var(--text-mid);font-weight:300}
-.prayer-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.7;color:var(--text-dark);font-style:italic}
-.prayer-amen{display:block;text-align:right;margin-top:8px;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--gold);font-style:italic}
-.loading-state{text-align:center;padding:30px 0;color:var(--text-light);font-size:.88rem}
-.loading-dots span{display:inline-block;width:6px;height:6px;background:var(--gold);border-radius:50%;margin:0 3px;animation:dot-pulse 1.4s infinite ease-in-out}
-.loading-dots span:nth-child(2){animation-delay:.2s}
-.loading-dots span:nth-child(3){animation-delay:.4s}
-@keyframes dot-pulse{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-.refresh-btn{width:100%;padding:14px;border:1px solid rgba(201,168,76,.35);background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(123,167,188,.08));border-radius:12px;font-family:'Lato',sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);cursor:pointer;transition:all .25s ease;display:flex;align-items:center;justify-content:center;gap:8px}
-.refresh-btn:hover{background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(123,167,188,.14));border-color:var(--gold);color:var(--text-dark)}
-.refresh-btn:disabled{opacity:.5;cursor:not-allowed}
-.reminder-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.reminder-block{flex:1;min-width:120px}
-.reminder-block label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-light);margin-bottom:5px}
-.reminder-block input[type="time"]{width:100%;padding:9px 12px;border:1px solid rgba(201,168,76,.25);border-radius:10px;background:rgba(255,253,248,.9);font-family:'Lato',sans-serif;font-size:.95rem;color:var(--text-dark);outline:none}
-.set-reminder-btn{padding:9px 18px;background:linear-gradient(135deg,var(--gold),#b8943f);border:none;border-radius:10px;color:white;font-family:'Lato',sans-serif;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:16px;box-shadow:0 2px 10px rgba(201,168,76,.25)}
-.reminder-status{font-size:.78rem;color:#5a8a5a;margin-top:8px;min-height:18px}
-.notif-note{font-size:.73rem;color:var(--text-light);margin-top:8px;line-height:1.5;padding:8px 10px;background:rgba(123,167,188,.08);border-radius:8px;border-left:2px solid rgba(123,167,188,.3)}
-.share-row{display:flex;gap:8px;flex-wrap:wrap}
-.share-btn{flex:1;min-width:100px;padding:10px 8px;border-radius:10px;border:1px solid rgba(201,168,76,.22);background:transparent;font-size:.75rem;color:var(--text-mid);cursor:pointer;transition:all .2s;text-align:center}
-.share-btn:hover{background:rgba(201,168,76,.09);border-color:var(--gold)}
-.support-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),#b8943f);border:none;border-radius:12px;color:white;font-family:'Lato',sans-serif;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 4px 16px rgba(201,168,76,.3);transition:all .25s ease}
-.support-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
-.footer{text-align:center;padding:16px 0 0;font-size:.7rem;color:var(--text-light);line-height:1.8}
-.footer a{color:var(--gold);text-decoration:none}
-.spin{display:inline-block;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-</style>
-</head>
-<body>
-<div class="bg-canvas"></div>
-<div class="app-wrapper">
-<div class="header">
-<span class="dove">🕊️</span>
-<h1>Morning & Evening <span>Grace</span></h1>
-<p class="tagline">Daily Spiritual Encouragement · NIV</p>
-<span class="session-badge" id="sessionBadge">Loading...</span>
-<p class="date-display" id="dateDisplay"></p>
-</div>
-<div class="card">
-<div class="card-label">🔔 Reminder Times</div>
-<div class="reminder-row">
-<div class="reminder-block"><label>🌅 Morning</label><input type="time" id="morningTime" value="06:00"></div>
-<div class="reminder-block"><label>🌙 Evening</label><input type="time" id="eveningTime" value="18:00"></div>
-</div>
-<button class="set-reminder-btn" onclick="setReminders()">✓ Save My Reminder Times</button>
-<div class="reminder-status" id="reminderStatus"></div>
-<div class="notif-note" id="notifNote">💡 Click Save My Reminder Times then allow notifications when your browser asks.</div>
-</div>
-<div id="contentArea"><div class="card"><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px">Preparing your encouragement…</p></div></div></div>
-<button class="refresh-btn" id="refreshBtn" onclick="loadContent()" disabled><span id="refreshIcon">✦</span> New Verse & Prayer</button>
-<div class="card" id="shareCard" style="display:none">
-<div class="card-label">💌 Share Today's Grace</div>
-<div class="share-row">
-<button class="share-btn" onclick="shareWhatsApp()">📱 WhatsApp</button>
-<button class="share-btn" onclick="copyText()">📋 Copy Text</button>
-<button class="share-btn" onclick="shareFacebook()">🌐 Facebook</button>
-</div>
-</div>
-<div class="card" style="animation-delay:0.5s">
-<div class="card-label">☕ Support This Ministry</div>
-<p style="font-size:.85rem;color:var(--text-mid);margin-bottom:14px;line-height:1.6">If this devotional has blessed you, consider supporting us to keep it free for everyone. Every contribution matters! 🙏</p>
-<a href="https://ko-fi.com/morningeveninggrace" target="_blank" class="support-btn">☕ Buy Me a Coffee · Support This Ministry</a>
-</div>
-<div class="footer">Morning & Evening Grace · Built with ❤️ for busy souls<br><a href="https://ko-fi.com/morningeveninggrace" target="_blank">Support This Ministry</a></div>
-</div>
-<script>
-var currentContent=null;
-var scheduledAlarms={};
-var devotionals=[
-{reference:"Psalm 143:8",verse:"Let the morning bring me word of your unfailing love, for I have put my trust in you. Show me the way I should go, for to you I entrust my life.",explanation:"Every morning is a fresh invitation from God to receive His love before anything else touches your day. Before the demands, the worries, and the noise begin, God is already speaking — and what He speaks is love. Today, no matter what lies ahead, you walk into it held by Someone who knows every detail of your situation and has not stopped loving you for a single moment. Trust Him with the path you cannot yet see.",prayer:"Lord, as this morning begins I choose to receive Your love before anything else. I do not know everything this day holds, but You do. Show me the right path and give me the courage to follow it. I entrust this day entirely into Your hands. Thank You that Your love never fails."},
-{reference:"Isaiah 40:31",verse:"But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",explanation:"God never promised that life would be effortless, but He promised something far better — that when our strength runs out, His strength takes over. Waiting on God is not passive resignation; it is active trust that repositions your soul to receive what only He can give. The eagle does not flap harder to rise — it opens its wings and lets the wind carry it. Today, open yourself to God's strength and let Him carry you.",prayer:"Father, I am honest with You — I feel weary. The demands of life have taken more than I expected. But Your Word says those who wait on You will rise again. I choose to wait on You today. Renew my strength, lift me above my circumstances, and carry me through this day on Your power, not my own."},
-{reference:"Lamentations 3:22-23",verse:"Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.",explanation:"Whatever yesterday held — its failures, its grief, its disappointments — this morning carries a gift that yesterday could not bring: new mercies. God does not ration His compassion based on how well you performed. He simply opens a fresh supply every single morning because that is who He is. You are starting today not with yesterday's leftovers but with brand new grace. Receive it.",prayer:"Thank You Lord for new mercies this morning. I release yesterday — its mistakes, its pain, and its unfinished worries. Today I stand in Your fresh compassion and Your great faithfulness. Help me to live fully in this new day, knowing that Your grace is sufficient for every moment I will face."},
-{reference:"Philippians 4:6-7",verse:"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",explanation:"God does not tell us to stop worrying by simply trying harder — He gives us something specific to do instead: pray, with thanksgiving. Gratitude shifts our focus from what we lack to what we already have, and prayer moves the weight off our shoulders and onto His. The peace that follows is a supernatural calm that does not make logical sense, standing guard over your heart like a soldier at the gate.",prayer:"Lord, I bring You every worry I am carrying right now. I name them honestly before You and I choose to leave them in Your hands. I thank You for the ways You have already provided and already been faithful. Guard my heart today with Your peace that goes beyond my understanding. Let me rest in You."},
-{reference:"Joshua 1:9",verse:"Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",explanation:"God does not say be strong because the road is easy. He says be strong because I am with you. The courage God calls us to is not the absence of fear — it is moving forward in faith while fear is still present, knowing that the One who goes with you is greater than anything you will face. You are not alone in the difficult places. God's presence goes ahead of you, stands beside you, and covers your back.",prayer:"God, there are things ahead of me that make me afraid. But You have commanded me not to be discouraged, and You have backed that command with Your presence. I choose courage today — not because I feel brave, but because You are with me. Go before me into every situation I face today."},
-{reference:"Matthew 11:28-29",verse:"Come to me, all you who are weary and burdened, and I will give you rest. Take my yoke upon you and learn from me, for I am gentle and humble in heart, and you will find rest for your souls.",explanation:"Jesus does not say come to me when you have sorted yourself out — He calls the weary and the burdened, exactly as they are. The rest He offers is not just physical rest but rest for the soul — that deep inner quietness that comes when you stop carrying alone what was never meant for one person to carry. Today, whatever is weighing on you, you have an open invitation to bring it directly to Jesus.",prayer:"Jesus, I come to You exactly as I am — tired, perhaps uncertain, carrying more than feels comfortable. You said You would give rest to the weary and I am choosing to believe that promise today. I lay down my heavy load at Your feet. Let my soul find the rest that only You can give."},
-{reference:"Romans 8:28",verse:"And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",explanation:"This verse does not promise that all things are good — it promises that God works all things together for good. The painful chapter you are living through right now is not the final chapter. God is a master at taking the broken pieces of our stories and weaving them into something beautiful. Nothing in your life is wasted in His hands — not the losses, not the setbacks, not even the mistakes.",prayer:"Lord, I do not always understand what You are doing. There are parts of my story that are painful and confusing. But I choose to trust that You are working — even now, even here — for my good. I love You and I rest in the confidence that You have not lost the plot of my life."},
-{reference:"Psalm 23:1-3",verse:"The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul.",explanation:"A shepherd does not drive the sheep — he leads them. And the first thing this shepherd does is ensure that you lack nothing and that your soul is refreshed. In the busyness of life we so easily deplete ourselves, running from task to task until we are hollow. Today, your Shepherd invites you to stop, to follow His leading to a place of quiet, and to let your soul be genuinely restored.",prayer:"Good Shepherd, lead me today. In the noise and the rushing, remind me to follow Your voice to the quiet places where my soul can breathe. I trust that under Your care I lack nothing that truly matters. Refresh me today and lead me in the right paths for Your name's sake."},
-{reference:"Proverbs 3:5-6",verse:"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",explanation:"Our own understanding has a limited view — it sees only what is visible and only what has happened so far. God's understanding encompasses the whole story, including the chapters not yet written. Leaning on our own understanding is like navigating with a partial map. Trusting God is choosing the Guide who knows every turn ahead.",prayer:"Father, today I choose deliberately to trust You with my whole heart. In the decisions I face, the uncertainties I carry, and the paths I cannot yet see — I submit them all to You. Make my paths straight. I choose Your wisdom over my own."},
-{reference:"2 Corinthians 12:9",verse:"But he said to me, My grace is sufficient for you, for my power is made perfect in weakness. Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me.",explanation:"The places where we feel most insufficient are often the very places where God's power shows up most clearly. When we reach the end of what we can do, we finally create space for what God can do. Your weakness today is not a disqualification — it is an invitation for God's power to be displayed in your situation. His grace is genuinely enough.",prayer:"Lord, I acknowledge my weakness honestly before You. I cannot do this in my own strength. But Your Word says Your power is made perfect in weakness, and I am asking You to prove that true in my life today. Let Your grace cover every gap and let Your power rest on me."},
-{reference:"Psalm 46:10",verse:"He says, Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.",explanation:"In a world that rewards constant activity, God issues a countercultural command: be still. Not passive, not defeated — but deliberately, confidently quiet in the knowledge of who He is. When everything around you feels uncertain and out of control, the steadying truth is that God is still God. He has not been displaced, surprised, or overwhelmed.",prayer:"God, I choose stillness right now. I quiet the noise in my mind and I acknowledge that You are God. Nothing that has happened has caught You off guard. Nothing I face has exceeded Your power. Still my anxious heart and fill me with the peace of knowing You are in control."},
-{reference:"John 16:33",verse:"I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world.",explanation:"Jesus was refreshingly honest — He did not promise a trouble-free life. But He promised something far more powerful: peace in the middle of trouble, and a Saviour who has already overcome the very world that troubles us. Whatever you are facing today, you face it as someone on the winning side.",prayer:"Jesus, thank You that You have overcome this world. I take heart today. I face my challenges not as someone abandoned or defeated, but as someone standing with the Victor. Let Your peace be real and present in my heart right now."},
-{reference:"Psalm 121:1-2",verse:"I lift up my eyes to the mountains — where does my help come from? My help comes from the Lord, the Maker of heaven and earth.",explanation:"When we face mountains — towering problems, impossible situations — the question is always the same: where does our help come from? The psalmist answers with beautiful confidence: from the Lord, the very One who made those mountains. The God you are praying to created everything you can see and everything you cannot. No problem you face is larger than its Creator.",prayer:"Lord, I lift my eyes to You. The mountains in my life feel large, but You made them and You are greater. My help comes from You — not from my own efforts, not from circumstances changing. From You alone. I trust You with every mountain I cannot move on my own."},
-{reference:"Ephesians 3:20",verse:"Now to him who is able to do immeasurably more than all we ask or imagine, according to his power that is at work within us.",explanation:"Our prayers are limited by our imagination — but God is not limited by our prayers. He is able to do immeasurably more than anything our minds can construct. This is a call to hold our prayers with open hands, knowing that God's answer may be bigger, better, and more wonderful than what we asked for.",prayer:"God, tonight I bring You my requests and I hold them with open hands, trusting that Your answer will exceed my asking. Do immeasurably more in my life and circumstances than I have dared to believe. To You be the glory."},
-{reference:"Psalm 4:8",verse:"In peace I will lie down and sleep, for you alone, Lord, make me dwell in safety.",explanation:"As the evening comes and the day's concerns press in, God invites you into something rare and precious: genuine peace at rest. Sleep is an act of trust — it is releasing the day and acknowledging that while you rest, God watches. You do not need to solve everything tonight. The same God who held you through today will hold everything through the night.",prayer:"Lord, as this day ends I release it to You — the things that went well and the things that did not. You alone make me dwell in safety. Tonight I choose to trust You with everything I cannot control. Guard my sleep and let me rest knowing You never stop watching over those You love."}
-];
-function getSession(){var h=new Date().getHours();return h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':'evening'}
-function updateSessionBadge(){var badge=document.getElementById('sessionBadge');var s=getSession();var now=new Date();var t=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(s==='morning'){badge.textContent='🌅 Good Morning · '+t;badge.className='session-badge morning'}else if(s==='afternoon'){badge.textContent='☀️ Good Afternoon · '+t;badge.className='session-badge morning'}else{badge.textContent='🌙 Good Evening · '+t;badge.className='session-badge evening'}}
-updateSessionBadge();
+function copyText(){navigator.clipboard.writeText(buildShareText()).then(function(){var btn=event.target;btn.textContent='✓ Copied!';setTimeout(function(){btn.textContent='📋 Copy'},2000)})}
+function restoreSavedTimes(){
+var m=localStorage.getItem('grace_morning');var e=localStorage.getItem('grace_evening');
+if(m)document.getElementById('morningTime').value=m;
+if(e)document.getElementById('eveningTime').value=e;
+if(m&&e&&Notification.permission==='granted'){scheduleNotifications(m,e);document.getElementById('reminderStatus').textContent='✓ Reminders active: Morning '+formatTime(m)+', Evening '+formatTime(e)}
+}
+updateTheme();updateSessionBadge();updateDateDisplay();
 setInterval(updateSessionBadge,60000);
-function updateDateDisplay(){var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];var months=['January','February','March','April','May','June','July','August','September','October','November','December'];var now=new Date();var day=days[now.getDay()];var date=now.getDate();var month=months[now.getMonth()];var year=now.getFullYear();var suffix=date===1||date===21||date===31?'st':date===2||date===22?'nd':date===3||date===23?'rd':'th';var el=document.getElementById('dateDisplay');if(el)el.textContent=day+', '+date+suffix+' '+month+' '+year}
-updateDateDisplay();
-function getTodaysDevotional(session){var now=new Date();var seed=now.getFullYear()*1000+now.getMonth()*31+now.getDate()+(session==='morning'?0:7);return devotionals[seed%devotionals.length]}
-function loadContent(){var btn=document.getElementById('refreshBtn');var icon=document.getElementById('refreshIcon');btn.disabled=true;icon.className='spin';icon.textContent='↻';var session=getSession();document.getElementById('contentArea').innerHTML='<div class="card"><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px">Seeking your encouragement…</p></div></div>';document.getElementById('shareCard').style.display='none';setTimeout(function(){var parsed=getTodaysDevotional(session);currentContent=parsed;renderContent(parsed,session);btn.disabled=false;icon.className='';icon.textContent='✦';document.getElementById('shareCard').style.display='block'},1200)}
-function renderContent(data,session){document.getElementById('contentArea').innerHTML='<div class="card" style="animation-delay:0.1s"><div class="card-label">📖 Today\'s Verse</div><div class="verse-ref">'+data.reference+' · NIV</div><div class="verse-text">'+data.verse+'</div></div><div class="card" style="animation-delay:0.2s"><div class="card-label">💛 Reflection</div><div class="explanation-text">'+data.explanation+'</div></div><div class="card" style="animation-delay:0.3s"><div class="card-label">🙏 Prayer</div><div class="prayer-text">'+data.prayer+'</div><span class="prayer-amen">— Amen</span></div>'}
-function setReminders(){var m=document.getElementById('morningTime').value;var e=document.getElementById('eveningTime').value;var s=document.getElementById('reminderStatus');var n=document.getElementById('notifNote');if(!m||!e){s.textContent='⚠️ Please set both times.';return}if('Notification' in window){Notification.requestPermission().then(function(p){if(p==='granted'){localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e);scheduleNotifications(m,e);s.style.color='#5a8a5a';s.textContent='✓ Reminders set: Morning '+formatTime(m)+', Evening '+formatTime(e);n.textContent='✅ Notifications active! Keep this tab open for reminders to work.'}else{s.style.color='#b05555';s.textContent='⚠️ Notifications blocked. Please enable in browser settings.'}})}else{s.textContent='📱 Set a phone alarm to visit this app at your chosen times!';localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e)}}
-function scheduleNotifications(m,e){Object.values(scheduledAlarms).forEach(clearTimeout);scheduledAlarms={};function schedule(timeStr,label,emoji){var parts=timeStr.split(':');var h=parseInt(parts[0]);var min=parseInt(parts[1]);var now=new Date();var target=new Date(now.getFullYear(),now.getMonth(),now.getDate(),h,min,0);if(target<=now)target.setDate(target.getDate()+1);var ms=target-now;scheduledAlarms[label]=setTimeout(function(){new Notification('🕊️ Morning & Evening Grace',{body:'It\'s your '+label+' time. Open the app for today\'s verse & prayer 🙏',tag:'grace-'+label});scheduledAlarms[label]=setTimeout(function(){schedule(timeStr,label,emoji)},86400000)},ms)}schedule(m,'morning','🌅');schedule(e,'evening','🌙')}
-function formatTime(t){var parts=t.split(':');var h=parseInt(parts[0]);var m=parts[1];var ampm=h>=12?'PM':'AM';var h12=h%12||12;return h12+':'+m+' '+ampm}
-function buildShareText(){if(!currentContent)return'';return'🕊️ Morning & Evening Grace\n\n📖 '+currentContent.reference+' (NIV)\n"'+currentContent.verse+'"\n\n💛 '+currentContent.explanation+'\n\n🙏 '+currentContent.prayer+'\n\n— Amen\n\nGet your free daily encouragement: https://shikomola.github.io'}
-function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(buildShareText()),'_blank')}
-function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('https://shikomola.github.io'),'_blank')}
-function copyText(){navigator.clipboard.writeText(buildShareText()).then(function(){var btn=event.target;btn.textContent='✓ Copied!';setTimeout(function(){btn.textContent='📋 Copy Text'},2000)})}
-function restoreSavedTimes(){var m=localStorage.getItem('grace_morning');var e=localStorage.getItem('grace_evening');if(m)document.getElementById('morningTime').value=m;if(e)document.getElementById('eveningTime').value=e;if(m&&e&&Notification.permission==='granted'){scheduleNotifications(m,e);document.getElementById('reminderStatus').textContent='✓ Reminders active: Morning '+formatTime(m)+', Evening '+formatTime(e)}}
-restoreSavedTimes();
-loadContent();
+restoreSavedTimes();loadContent();
 </script>
 </body>
 </html>
- 
-<<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morning & Evening Grace</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-<style>
-:root{--gold:#c9a84c;--gold-light:#e8d5a3;--blue-soft:#7ba7bc;--cream:#fdf8f0;--warm-white:#fffdf8;--text-dark:#3a3028;--text-mid:#6b5e52;--text-light:#9b8e82}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Lato',sans-serif;background:var(--cream);min-height:100vh;color:var(--text-dark);overflow-x:hidden}
-.bg-canvas{position:fixed;inset:0;z-index:0;background:linear-gradient(160deg,#fdf6e3 0%,#e8f4f8 40%,#fdf0d5 100%)}
-.app-wrapper{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:24px 16px 60px;min-height:100vh;display:flex;flex-direction:column;gap:18px}
-.header{text-align:center;padding:28px 0 10px}
-.header .dove{font-size:2rem;margin-bottom:6px;display:block;animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.header h1{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text-dark);letter-spacing:.04em;line-height:1.2}
-.header h1 span{color:var(--gold);font-style:italic}
-.header .tagline{font-size:.78rem;color:var(--text-light);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
-.session-badge{display:inline-block;margin-top:12px;padding:4px 14px;border-radius:20px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
-.session-badge.morning{background:rgba(201,168,76,.15);color:#8a6f2e;border:1px solid rgba(201,168,76,.3)}
-.session-badge.evening{background:rgba(123,167,188,.15);color:#3d6e85;border:1px solid rgba(123,167,188,.3)}
-.date-display{font-size:.85rem;color:var(--text-mid);margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic}
-.card{background:rgba(255,253,248,.85);backdrop-filter:blur(8px);border-radius:18px;padding:24px 22px;border:1px solid rgba(201,168,76,.18);box-shadow:0 4px 24px rgba(60,45,30,.07);animation:fadeUp .6s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.card-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);font-weight:400;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.card-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(201,168,76,.3),transparent)}
-.verse-ref{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--gold);font-style:italic;margin-bottom:8px}
-.verse-text{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;line-height:1.55;color:var(--text-dark);font-style:italic}
-.explanation-text{font-size:.95rem;line-height:1.75;color:var(--text-mid);font-weight:300}
-.prayer-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.7;color:var(--text-dark);font-style:italic}
-.prayer-amen{display:block;text-align:right;margin-top:8px;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--gold);font-style:italic}
-.loading-state{text-align:center;padding:30px 0;color:var(--text-light);font-size:.88rem}
-.loading-dots span{display:inline-block;width:6px;height:6px;background:var(--gold);border-radius:50%;margin:0 3px;animation:dot-pulse 1.4s infinite ease-in-out}
-.loading-dots span:nth-child(2){animation-delay:.2s}
-.loading-dots span:nth-child(3){animation-delay:.4s}
-@keyframes dot-pulse{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-.refresh-btn{width:100%;padding:14px;border:1px solid rgba(201,168,76,.35);background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(123,167,188,.08));border-radius:12px;font-family:'Lato',sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);cursor:pointer;transition:all .25s ease;display:flex;align-items:center;justify-content:center;gap:8px}
-.refresh-btn:hover{background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(123,167,188,.14));border-color:var(--gold);color:var(--text-dark)}
-.refresh-btn:disabled{opacity:.5;cursor:not-allowed}
-.reminder-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.reminder-block{flex:1;min-width:120px}
-.reminder-block label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-light);margin-bottom:5px}
-.reminder-block input[type="time"]{width:100%;padding:9px 12px;border:1px solid rgba(201,168,76,.25);border-radius:10px;background:rgba(255,253,248,.9);font-family:'Lato',sans-serif;font-size:.95rem;color:var(--text-dark);outline:none}
-.set-reminder-btn{padding:9px 18px;background:linear-gradient(135deg,var(--gold),#b8943f);border:none;border-radius:10px;color:white;font-family:'Lato',sans-serif;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:16px;box-shadow:0 2px 10px rgba(201,168,76,.25)}
-.reminder-status{font-size:.78rem;color:#5a8a5a;margin-top:8px;min-height:18px}
-.notif-note{font-size:.73rem;color:var(--text-light);margin-top:8px;line-height:1.5;padding:8px 10px;background:rgba(123,167,188,.08);border-radius:8px;border-left:2px solid rgba(123,167,188,.3)}
-.share-row{display:flex;gap:8px;flex-wrap:wrap}
-.share-btn{flex:1;min-width:100px;padding:10px 8px;border-radius:10px;border:1px solid rgba(201,168,76,.22);background:transparent;font-size:.75rem;color:var(--text-mid);cursor:pointer;transition:all .2s;text-align:center}
-.share-btn:hover{background:rgba(201,168,76,.09);border-color:var(--gold)}
-.support-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),#b8943f);border:none;border-radius:12px;color:white;font-family:'Lato',sans-serif;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 4px 16px rgba(201,168,76,.3);transition:all .25s ease}
-.support-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
-.footer{text-align:center;padding:16px 0 0;font-size:.7rem;color:var(--text-light);line-height:1.8}
-.footer a{color:var(--gold);text-decoration:none}
-.spin{display:inline-block;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-</style>
-</head>
-<body>
-<div class="bg-canvas"></div>
-<div class="app-wrapper">
-<div class="header">
-<span class="dove">🕊️</span>
-<h1>Morning & Evening <span>Grace</span></h1>
-<p class="tagline">Daily Spiritual Encouragement · NIV</p>
-<span class="session-badge" id="sessionBadge">Loading...</span>
-<p class="date-display" id="dateDisplay"></p>
-</div>
-<div class="card">
-<div class="card-label">🔔 Reminder Times</div>
-<div class="reminder-row">
-<div class="reminder-block"><label>🌅 Morning</label><input type="time" id="morningTime" value="06:00"></div>
-<div class="reminder-block"><label>🌙 Evening</label><input type="time" id="eveningTime" value="18:00"></div>
-</div>
-<button class="set-reminder-btn" onclick="setReminders()">✓ Save My Reminder Times</button>
-<div class="reminder-status" id="reminderStatus"></div>
-<div class="notif-note" id="notifNote">💡 Click Save My Reminder Times then allow notifications when your browser asks.</div>
-</div>
-<div id="contentArea"><div class="card"><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px">Preparing your encouragement…</p></div></div></div>
-<button class="refresh-btn" id="refreshBtn" onclick="loadContent()" disabled><span id="refreshIcon">✦</span> New Verse & Prayer</button>
-<div class="card" id="shareCard" style="display:none">
-<div class="card-label">💌 Share Today's Grace</div>
-<div class="share-row">
-<button class="share-btn" onclick="shareWhatsApp()">📱 WhatsApp</button>
-<button class="share-btn" onclick="copyText()">📋 Copy Text</button>
-<button class="share-btn" onclick="shareFacebook()">🌐 Facebook</button>
-</div>
-</div>
-<div class="card" style="animation-delay:0.5s">
-<div class="card-label">☕ Support This Ministry</div>
-<p style="font-size:.85rem;color:var(--text-mid);margin-bottom:14px;line-height:1.6">If this devotional has blessed you, consider supporting us to keep it free for everyone. Every contribution matters! 🙏</p>
-<a href="https://ko-fi.com/morningeveninggrace" target="_blank" class="support-btn">☕ Buy Me a Coffee · Support This Ministry</a>
-</div>
-<div class="footer">Morning & Evening Grace · Built with ❤️ for busy souls<br><a href="https://ko-fi.com/morningeveninggrace" target="_blank">Support This Ministry</a></div>
-</div>
-<script>
-var currentContent=null;
-var scheduledAlarms={};
-var devotionals=[
-{reference:"Psalm 143:8",verse:"Let the morning bring me word of your unfailing love, for I have put my trust in you. Show me the way I should go, for to you I entrust my life.",explanation:"Every morning is a fresh invitation from God to receive His love before anything else touches your day. Before the demands, the worries, and the noise begin, God is already speaking — and what He speaks is love. Today, no matter what lies ahead, you walk into it held by Someone who knows every detail of your situation and has not stopped loving you for a single moment. Trust Him with the path you cannot yet see.",prayer:"Lord, as this morning begins I choose to receive Your love before anything else. I do not know everything this day holds, but You do. Show me the right path and give me the courage to follow it. I entrust this day entirely into Your hands. Thank You that Your love never fails."},
-{reference:"Isaiah 40:31",verse:"But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",explanation:"God never promised that life would be effortless, but He promised something far better — that when our strength runs out, His strength takes over. Waiting on God is not passive resignation; it is active trust that repositions your soul to receive what only He can give. The eagle does not flap harder to rise — it opens its wings and lets the wind carry it. Today, open yourself to God's strength and let Him carry you.",prayer:"Father, I am honest with You — I feel weary. The demands of life have taken more than I expected. But Your Word says those who wait on You will rise again. I choose to wait on You today. Renew my strength, lift me above my circumstances, and carry me through this day on Your power, not my own."},
-{reference:"Lamentations 3:22-23",verse:"Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.",explanation:"Whatever yesterday held — its failures, its grief, its disappointments — this morning carries a gift that yesterday could not bring: new mercies. God does not ration His compassion based on how well you performed. He simply opens a fresh supply every single morning because that is who He is. You are starting today not with yesterday's leftovers but with brand new grace. Receive it.",prayer:"Thank You Lord for new mercies this morning. I release yesterday — its mistakes, its pain, and its unfinished worries. Today I stand in Your fresh compassion and Your great faithfulness. Help me to live fully in this new day, knowing that Your grace is sufficient for every moment I will face."},
-{reference:"Philippians 4:6-7",verse:"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",explanation:"God does not tell us to stop worrying by simply trying harder — He gives us something specific to do instead: pray, with thanksgiving. Gratitude shifts our focus from what we lack to what we already have, and prayer moves the weight off our shoulders and onto His. The peace that follows is a supernatural calm that does not make logical sense, standing guard over your heart like a soldier at the gate.",prayer:"Lord, I bring You every worry I am carrying right now. I name them honestly before You and I choose to leave them in Your hands. I thank You for the ways You have already provided and already been faithful. Guard my heart today with Your peace that goes beyond my understanding. Let me rest in You."},
-{reference:"Joshua 1:9",verse:"Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",explanation:"God does not say be strong because the road is easy. He says be strong because I am with you. The courage God calls us to is not the absence of fear — it is moving forward in faith while fear is still present, knowing that the One who goes with you is greater than anything you will face. You are not alone in the difficult places. God's presence goes ahead of you, stands beside you, and covers your back.",prayer:"God, there are things ahead of me that make me afraid. But You have commanded me not to be discouraged, and You have backed that command with Your presence. I choose courage today — not because I feel brave, but because You are with me. Go before me into every situation I face today."},
-{reference:"Matthew 11:28-29",verse:"Come to me, all you who are weary and burdened, and I will give you rest. Take my yoke upon you and learn from me, for I am gentle and humble in heart, and you will find rest for your souls.",explanation:"Jesus does not say come to me when you have sorted yourself out — He calls the weary and the burdened, exactly as they are. The rest He offers is not just physical rest but rest for the soul — that deep inner quietness that comes when you stop carrying alone what was never meant for one person to carry. Today, whatever is weighing on you, you have an open invitation to bring it directly to Jesus.",prayer:"Jesus, I come to You exactly as I am — tired, perhaps uncertain, carrying more than feels comfortable. You said You would give rest to the weary and I am choosing to believe that promise today. I lay down my heavy load at Your feet. Let my soul find the rest that only You can give."},
-{reference:"Romans 8:28",verse:"And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",explanation:"This verse does not promise that all things are good — it promises that God works all things together for good. The painful chapter you are living through right now is not the final chapter. God is a master at taking the broken pieces of our stories and weaving them into something beautiful. Nothing in your life is wasted in His hands — not the losses, not the setbacks, not even the mistakes.",prayer:"Lord, I do not always understand what You are doing. There are parts of my story that are painful and confusing. But I choose to trust that You are working — even now, even here — for my good. I love You and I rest in the confidence that You have not lost the plot of my life."},
-{reference:"Psalm 23:1-3",verse:"The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul.",explanation:"A shepherd does not drive the sheep — he leads them. And the first thing this shepherd does is ensure that you lack nothing and that your soul is refreshed. In the busyness of life we so easily deplete ourselves, running from task to task until we are hollow. Today, your Shepherd invites you to stop, to follow His leading to a place of quiet, and to let your soul be genuinely restored.",prayer:"Good Shepherd, lead me today. In the noise and the rushing, remind me to follow Your voice to the quiet places where my soul can breathe. I trust that under Your care I lack nothing that truly matters. Refresh me today and lead me in the right paths for Your name's sake."},
-{reference:"Proverbs 3:5-6",verse:"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",explanation:"Our own understanding has a limited view — it sees only what is visible and only what has happened so far. God's understanding encompasses the whole story, including the chapters not yet written. Leaning on our own understanding is like navigating with a partial map. Trusting God is choosing the Guide who knows every turn ahead.",prayer:"Father, today I choose deliberately to trust You with my whole heart. In the decisions I face, the uncertainties I carry, and the paths I cannot yet see — I submit them all to You. Make my paths straight. I choose Your wisdom over my own."},
-{reference:"2 Corinthians 12:9",verse:"But he said to me, My grace is sufficient for you, for my power is made perfect in weakness. Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me.",explanation:"The places where we feel most insufficient are often the very places where God's power shows up most clearly. When we reach the end of what we can do, we finally create space for what God can do. Your weakness today is not a disqualification — it is an invitation for God's power to be displayed in your situation. His grace is genuinely enough.",prayer:"Lord, I acknowledge my weakness honestly before You. I cannot do this in my own strength. But Your Word says Your power is made perfect in weakness, and I am asking You to prove that true in my life today. Let Your grace cover every gap and let Your power rest on me."},
-{reference:"Psalm 46:10",verse:"He says, Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.",explanation:"In a world that rewards constant activity, God issues a countercultural command: be still. Not passive, not defeated — but deliberately, confidently quiet in the knowledge of who He is. When everything around you feels uncertain and out of control, the steadying truth is that God is still God. He has not been displaced, surprised, or overwhelmed.",prayer:"God, I choose stillness right now. I quiet the noise in my mind and I acknowledge that You are God. Nothing that has happened has caught You off guard. Nothing I face has exceeded Your power. Still my anxious heart and fill me with the peace of knowing You are in control."},
-{reference:"John 16:33",verse:"I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world.",explanation:"Jesus was refreshingly honest — He did not promise a trouble-free life. But He promised something far more powerful: peace in the middle of trouble, and a Saviour who has already overcome the very world that troubles us. Whatever you are facing today, you face it as someone on the winning side.",prayer:"Jesus, thank You that You have overcome this world. I take heart today. I face my challenges not as someone abandoned or defeated, but as someone standing with the Victor. Let Your peace be real and present in my heart right now."},
-{reference:"Psalm 121:1-2",verse:"I lift up my eyes to the mountains — where does my help come from? My help comes from the Lord, the Maker of heaven and earth.",explanation:"When we face mountains — towering problems, impossible situations — the question is always the same: where does our help come from? The psalmist answers with beautiful confidence: from the Lord, the very One who made those mountains. The God you are praying to created everything you can see and everything you cannot. No problem you face is larger than its Creator.",prayer:"Lord, I lift my eyes to You. The mountains in my life feel large, but You made them and You are greater. My help comes from You — not from my own efforts, not from circumstances changing. From You alone. I trust You with every mountain I cannot move on my own."},
-{reference:"Ephesians 3:20",verse:"Now to him who is able to do immeasurably more than all we ask or imagine, according to his power that is at work within us.",explanation:"Our prayers are limited by our imagination — but God is not limited by our prayers. He is able to do immeasurably more than anything our minds can construct. This is a call to hold our prayers with open hands, knowing that God's answer may be bigger, better, and more wonderful than what we asked for.",prayer:"God, tonight I bring You my requests and I hold them with open hands, trusting that Your answer will exceed my asking. Do immeasurably more in my life and circumstances than I have dared to believe. To You be the glory."},
-{reference:"Psalm 4:8",verse:"In peace I will lie down and sleep, for you alone, Lord, make me dwell in safety.",explanation:"As the evening comes and the day's concerns press in, God invites you into something rare and precious: genuine peace at rest. Sleep is an act of trust — it is releasing the day and acknowledging that while you rest, God watches. You do not need to solve everything tonight. The same God who held you through today will hold everything through the night.",prayer:"Lord, as this day ends I release it to You — the things that went well and the things that did not. You alone make me dwell in safety. Tonight I choose to trust You with everything I cannot control. Guard my sleep and let me rest knowing You never stop watching over those You love."}
-];
-function getSession(){var h=new Date().getHours();return h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':'evening'}
-function updateSessionBadge(){var badge=document.getElementById('sessionBadge');var s=getSession();var now=new Date();var t=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(s==='morning'){badge.textContent='🌅 Good Morning · '+t;badge.className='session-badge morning'}else if(s==='afternoon'){badge.textContent='☀️ Good Afternoon · '+t;badge.className='session-badge morning'}else{badge.textContent='🌙 Good Evening · '+t;badge.className='session-badge evening'}}
-updateSessionBadge();
-setInterval(updateSessionBadge,60000);
-function updateDateDisplay(){var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];var months=['January','February','March','April','May','June','July','August','September','October','November','December'];var now=new Date();var day=days[now.getDay()];var date=now.getDate();var month=months[now.getMonth()];var year=now.getFullYear();var suffix=date===1||date===21||date===31?'st':date===2||date===22?'nd':date===3||date===23?'rd':'th';var el=document.getElementById('dateDisplay');if(el)el.textContent=day+', '+date+suffix+' '+month+' '+year}
-updateDateDisplay();
-function getTodaysDevotional(session){var now=new Date();var seed=now.getFullYear()*1000+now.getMonth()*31+now.getDate()+(session==='morning'?0:7);return devotionals[seed%devotionals.length]}
-function loadContent(){var btn=document.getElementById('refreshBtn');var icon=document.getElementById('refreshIcon');btn.disabled=true;icon.className='spin';icon.textContent='↻';var session=getSession();document.getElementById('contentArea').innerHTML='<div class="card"><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px">Seeking your encouragement…</p></div></div>';document.getElementById('shareCard').style.display='none';setTimeout(function(){var parsed=getTodaysDevotional(session);currentContent=parsed;renderContent(parsed,session);btn.disabled=false;icon.className='';icon.textContent='✦';document.getElementById('shareCard').style.display='block'},1200)}
-function renderContent(data,session){document.getElementById('contentArea').innerHTML='<div class="card" style="animation-delay:0.1s"><div class="card-label">📖 Today\'s Verse</div><div class="verse-ref">'+data.reference+' · NIV</div><div class="verse-text">'+data.verse+'</div></div><div class="card" style="animation-delay:0.2s"><div class="card-label">💛 Reflection</div><div class="explanation-text">'+data.explanation+'</div></div><div class="card" style="animation-delay:0.3s"><div class="card-label">🙏 Prayer</div><div class="prayer-text">'+data.prayer+'</div><span class="prayer-amen">— Amen</span></div>'}
-function setReminders(){var m=document.getElementById('morningTime').value;var e=document.getElementById('eveningTime').value;var s=document.getElementById('reminderStatus');var n=document.getElementById('notifNote');if(!m||!e){s.textContent='⚠️ Please set both times.';return}if('Notification' in window){Notification.requestPermission().then(function(p){if(p==='granted'){localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e);scheduleNotifications(m,e);s.style.color='#5a8a5a';s.textContent='✓ Reminders set: Morning '+formatTime(m)+', Evening '+formatTime(e);n.textContent='✅ Notifications active! Keep this tab open for reminders to work.'}else{s.style.color='#b05555';s.textContent='⚠️ Notifications blocked. Please enable in browser settings.'}})}else{s.textContent='📱 Set a phone alarm to visit this app at your chosen times!';localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e)}}
-function scheduleNotifications(m,e){Object.values(scheduledAlarms).forEach(clearTimeout);scheduledAlarms={};function schedule(timeStr,label,emoji){var parts=timeStr.split(':');var h=parseInt(parts[0]);var min=parseInt(parts[1]);var now=new Date();var target=new Date(now.getFullYear(),now.getMonth(),now.getDate(),h,min,0);if(target<=now)target.setDate(target.getDate()+1);var ms=target-now;scheduledAlarms[label]=setTimeout(function(){new Notification('🕊️ Morning & Evening Grace',{body:'It\'s your '+label+' time. Open the app for today\'s verse & prayer 🙏',tag:'grace-'+label});scheduledAlarms[label]=setTimeout(function(){schedule(timeStr,label,emoji)},86400000)},ms)}schedule(m,'morning','🌅');schedule(e,'evening','🌙')}
-function formatTime(t){var parts=t.split(':');var h=parseInt(parts[0]);var m=parts[1];var ampm=h>=12?'PM':'AM';var h12=h%12||12;return h12+':'+m+' '+ampm}
-function buildShareText(){if(!currentContent)return'';return'🕊️ Morning & Evening Grace\n\n📖 '+currentContent.reference+' (NIV)\n"'+currentContent.verse+'"\n\n💛 '+currentContent.explanation+'\n\n🙏 '+currentContent.prayer+'\n\n— Amen\n\nGet your free daily encouragement: https://shikomola.github.io'}
-function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(buildShareText()),'_blank')}
-function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('https://shikomola.github.io'),'_blank')}
-function copyText(){navigator.clipboard.writeText(buildShareText()).then(function(){var btn=event.target;btn.textContent='✓ Copied!';setTimeout(function(){btn.textContent='📋 Copy Text'},2000)})}
-function restoreSavedTimes(){var m=localStorage.getItem('grace_morning');var e=localStorage.getItem('grace_evening');if(m)document.getElementById('morningTime').value=m;if(e)document.getElementById('eveningTime').value=e;if(m&&e&&Notification.permission==='granted'){scheduleNotifications(m,e);document.getElementById('reminderStatus').textContent='✓ Reminders active: Morning '+formatTime(m)+', Evening '+formatTime(e)}}
-restoreSavedTimes();
-loadContent();
-</script>
-</body>
-</html>!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morning & Evening Grace</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-<style>
-:root{--gold:#c9a84c;--gold-light:#e8d5a3;--blue-soft:#7ba7bc;--cream:#fdf8f0;--warm-white:#fffdf8;--text-dark:#3a3028;--text-mid:#6b5e52;--text-light:#9b8e82}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Lato',sans-serif;background:var(--cream);min-height:100vh;color:var(--text-dark);overflow-x:hidden}
-.bg-canvas{position:fixed;inset:0;z-index:0;background:linear-gradient(160deg,#fdf6e3 0%,#e8f4f8 40%,#fdf0d5 100%)}
-.app-wrapper{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:24px 16px 60px;min-height:100vh;display:flex;flex-direction:column;gap:18px}
-.header{text-align:center;padding:28px 0 10px}
-.header .dove{font-size:2rem;margin-bottom:6px;display:block;animation:float 4s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.header h1{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--text-dark);letter-spacing:.04em;line-height:1.2}
-.header h1 span{color:var(--gold);font-style:italic}
-.header .tagline{font-size:.78rem;color:var(--text-light);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
-.session-badge{display:inline-block;margin-top:12px;padding:4px 14px;border-radius:20px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
-.session-badge.morning{background:rgba(201,168,76,.15);color:#8a6f2e;border:1px solid rgba(201,168,76,.3)}
-.session-badge.evening{background:rgba(123,167,188,.15);color:#3d6e85;border:1px solid rgba(123,167,188,.3)}
-.date-display{font-size:.85rem;color:var(--text-mid);margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic}
-.card{background:rgba(255,253,248,.85);backdrop-filter:blur(8px);border-radius:18px;padding:24px 22px;border:1px solid rgba(201,168,76,.18);box-shadow:0 4px 24px rgba(60,45,30,.07);animation:fadeUp .6s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.card-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);font-weight:400;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.card-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(201,168,76,.3),transparent)}
-.verse-ref{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--gold);font-style:italic;margin-bottom:8px}
-.verse-text{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;line-height:1.55;color:var(--text-dark);font-style:italic}
-.explanation-text{font-size:.95rem;line-height:1.75;color:var(--text-mid);font-weight:300}
-.prayer-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;line-height:1.7;color:var(--text-dark);font-style:italic}
-.prayer-amen{display:block;text-align:right;margin-top:8px;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--gold);font-style:italic}
-.loading-state{text-align:center;padding:30px 0;color:var(--text-light);font-size:.88rem}
-.loading-dots span{display:inline-block;width:6px;height:6px;background:var(--gold);border-radius:50%;margin:0 3px;animation:dot-pulse 1.4s infinite ease-in-out}
-.loading-dots span:nth-child(2){animation-delay:.2s}
-.loading-dots span:nth-child(3){animation-delay:.4s}
-@keyframes dot-pulse{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-.refresh-btn{width:100%;padding:14px;border:1px solid rgba(201,168,76,.35);background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(123,167,188,.08));border-radius:12px;font-family:'Lato',sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mid);cursor:pointer;transition:all .25s ease;display:flex;align-items:center;justify-content:center;gap:8px}
-.refresh-btn:hover{background:linear-gradient(135deg,rgba(201,168,76,.16),rgba(123,167,188,.14));border-color:var(--gold);color:var(--text-dark)}
-.refresh-btn:disabled{opacity:.5;cursor:not-allowed}
-.reminder-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.reminder-block{flex:1;min-width:120px}
-.reminder-block label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-light);margin-bottom:5px}
-.reminder-block input[type="time"]{width:100%;padding:9px 12px;border:1px solid rgba(201,168,76,.25);border-radius:10px;background:rgba(255,253,248,.9);font-family:'Lato',sans-serif;font-size:.95rem;color:var(--text-dark);outline:none}
-.set-reminder-btn{padding:9px 18px;background:linear-gradient(135deg,var(--gold),#b8943f);border:none;border-radius:10px;color:white;font-family:'Lato',sans-serif;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:16px;box-shadow:0 2px 10px rgba(201,168,76,.25)}
-.reminder-status{font-size:.78rem;color:#5a8a5a;margin-top:8px;min-height:18px}
-.notif-note{font-size:.73rem;color:var(--text-light);margin-top:8px;line-height:1.5;padding:8px 10px;background:rgba(123,167,188,.08);border-radius:8px;border-left:2px solid rgba(123,167,188,.3)}
-.share-row{display:flex;gap:8px;flex-wrap:wrap}
-.share-btn{flex:1;min-width:100px;padding:10px 8px;border-radius:10px;border:1px solid rgba(201,168,76,.22);background:transparent;font-size:.75rem;color:var(--text-mid);cursor:pointer;transition:all .2s;text-align:center}
-.share-btn:hover{background:rgba(201,168,76,.09);border-color:var(--gold)}
-.support-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),#b8943f);border:none;border-radius:12px;color:white;font-family:'Lato',sans-serif;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 4px 16px rgba(201,168,76,.3);transition:all .25s ease}
-.support-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
-.footer{text-align:center;padding:16px 0 0;font-size:.7rem;color:var(--text-light);line-height:1.8}
-.footer a{color:var(--gold);text-decoration:none}
-.spin{display:inline-block;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-</style>
-</head>
-<body>
-<div class="bg-canvas"></div>
-<div class="app-wrapper">
-<div class="header">
-<span class="dove">🕊️</span>
-<h1>Morning & Evening <span>Grace</span></h1>
-<p class="tagline">Daily Spiritual Encouragement · NIV</p>
-<span class="session-badge" id="sessionBadge">Loading...</span>
-<p class="date-display" id="dateDisplay"></p>
-</div>
-<div class="card">
-<div class="card-label">🔔 Reminder Times</div>
-<div class="reminder-row">
-<div class="reminder-block"><label>🌅 Morning</label><input type="time" id="morningTime" value="06:00"></div>
-<div class="reminder-block"><label>🌙 Evening</label><input type="time" id="eveningTime" value="18:00"></div>
-</div>
-<button class="set-reminder-btn" onclick="setReminders()">✓ Save My Reminder Times</button>
-<div class="reminder-status" id="reminderStatus"></div>
-<div class="notif-note" id="notifNote">💡 Click Save My Reminder Times then allow notifications when your browser asks.</div>
-</div>
-<div id="contentArea"><div class="card"><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px">Preparing your encouragement…</p></div></div></div>
-<button class="refresh-btn" id="refreshBtn" onclick="loadContent()" disabled><span id="refreshIcon">✦</span> New Verse & Prayer</button>
-<div class="card" id="shareCard" style="display:none">
-<div class="card-label">💌 Share Today's Grace</div>
-<div class="share-row">
-<button class="share-btn" onclick="shareWhatsApp()">📱 WhatsApp</button>
-<button class="share-btn" onclick="copyText()">📋 Copy Text</button>
-<button class="share-btn" onclick="shareFacebook()">🌐 Facebook</button>
-</div>
-</div>
-<div class="card" style="animation-delay:0.5s">
-<div class="card-label">☕ Support This Ministry</div>
-<p style="font-size:.85rem;color:var(--text-mid);margin-bottom:14px;line-height:1.6">If this devotional has blessed you, consider supporting us to keep it free for everyone. Every contribution matters! 🙏</p>
-<a href="https://ko-fi.com/morningeveninggrace" target="_blank" class="support-btn">☕ Buy Me a Coffee · Support This Ministry</a>
-</div>
-<div class="footer">Morning & Evening Grace · Built with ❤️ for busy souls<br><a href="https://ko-fi.com/morningeveninggrace" target="_blank">Support This Ministry</a></div>
-</div>
-<script>
-var currentContent=null;
-var scheduledAlarms={};
-var devotionals=[
-{reference:"Psalm 143:8",verse:"Let the morning bring me word of your unfailing love, for I have put my trust in you. Show me the way I should go, for to you I entrust my life.",explanation:"Every morning is a fresh invitation from God to receive His love before anything else touches your day. Before the demands, the worries, and the noise begin, God is already speaking — and what He speaks is love. Today, no matter what lies ahead, you walk into it held by Someone who knows every detail of your situation and has not stopped loving you for a single moment. Trust Him with the path you cannot yet see.",prayer:"Lord, as this morning begins I choose to receive Your love before anything else. I do not know everything this day holds, but You do. Show me the right path and give me the courage to follow it. I entrust this day entirely into Your hands. Thank You that Your love never fails."},
-{reference:"Isaiah 40:31",verse:"But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",explanation:"God never promised that life would be effortless, but He promised something far better — that when our strength runs out, His strength takes over. Waiting on God is not passive resignation; it is active trust that repositions your soul to receive what only He can give. The eagle does not flap harder to rise — it opens its wings and lets the wind carry it. Today, open yourself to God's strength and let Him carry you.",prayer:"Father, I am honest with You — I feel weary. The demands of life have taken more than I expected. But Your Word says those who wait on You will rise again. I choose to wait on You today. Renew my strength, lift me above my circumstances, and carry me through this day on Your power, not my own."},
-{reference:"Lamentations 3:22-23",verse:"Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.",explanation:"Whatever yesterday held — its failures, its grief, its disappointments — this morning carries a gift that yesterday could not bring: new mercies. God does not ration His compassion based on how well you performed. He simply opens a fresh supply every single morning because that is who He is. You are starting today not with yesterday's leftovers but with brand new grace. Receive it.",prayer:"Thank You Lord for new mercies this morning. I release yesterday — its mistakes, its pain, and its unfinished worries. Today I stand in Your fresh compassion and Your great faithfulness. Help me to live fully in this new day, knowing that Your grace is sufficient for every moment I will face."},
-{reference:"Philippians 4:6-7",verse:"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",explanation:"God does not tell us to stop worrying by simply trying harder — He gives us something specific to do instead: pray, with thanksgiving. Gratitude shifts our focus from what we lack to what we already have, and prayer moves the weight off our shoulders and onto His. The peace that follows is a supernatural calm that does not make logical sense, standing guard over your heart like a soldier at the gate.",prayer:"Lord, I bring You every worry I am carrying right now. I name them honestly before You and I choose to leave them in Your hands. I thank You for the ways You have already provided and already been faithful. Guard my heart today with Your peace that goes beyond my understanding. Let me rest in You."},
-{reference:"Joshua 1:9",verse:"Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",explanation:"God does not say be strong because the road is easy. He says be strong because I am with you. The courage God calls us to is not the absence of fear — it is moving forward in faith while fear is still present, knowing that the One who goes with you is greater than anything you will face. You are not alone in the difficult places. God's presence goes ahead of you, stands beside you, and covers your back.",prayer:"God, there are things ahead of me that make me afraid. But You have commanded me not to be discouraged, and You have backed that command with Your presence. I choose courage today — not because I feel brave, but because You are with me. Go before me into every situation I face today."},
-{reference:"Matthew 11:28-29",verse:"Come to me, all you who are weary and burdened, and I will give you rest. Take my yoke upon you and learn from me, for I am gentle and humble in heart, and you will find rest for your souls.",explanation:"Jesus does not say come to me when you have sorted yourself out — He calls the weary and the burdened, exactly as they are. The rest He offers is not just physical rest but rest for the soul — that deep inner quietness that comes when you stop carrying alone what was never meant for one person to carry. Today, whatever is weighing on you, you have an open invitation to bring it directly to Jesus.",prayer:"Jesus, I come to You exactly as I am — tired, perhaps uncertain, carrying more than feels comfortable. You said You would give rest to the weary and I am choosing to believe that promise today. I lay down my heavy load at Your feet. Let my soul find the rest that only You can give."},
-{reference:"Romans 8:28",verse:"And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",explanation:"This verse does not promise that all things are good — it promises that God works all things together for good. The painful chapter you are living through right now is not the final chapter. God is a master at taking the broken pieces of our stories and weaving them into something beautiful. Nothing in your life is wasted in His hands — not the losses, not the setbacks, not even the mistakes.",prayer:"Lord, I do not always understand what You are doing. There are parts of my story that are painful and confusing. But I choose to trust that You are working — even now, even here — for my good. I love You and I rest in the confidence that You have not lost the plot of my life."},
-{reference:"Psalm 23:1-3",verse:"The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul.",explanation:"A shepherd does not drive the sheep — he leads them. And the first thing this shepherd does is ensure that you lack nothing and that your soul is refreshed. In the busyness of life we so easily deplete ourselves, running from task to task until we are hollow. Today, your Shepherd invites you to stop, to follow His leading to a place of quiet, and to let your soul be genuinely restored.",prayer:"Good Shepherd, lead me today. In the noise and the rushing, remind me to follow Your voice to the quiet places where my soul can breathe. I trust that under Your care I lack nothing that truly matters. Refresh me today and lead me in the right paths for Your name's sake."},
-{reference:"Proverbs 3:5-6",verse:"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",explanation:"Our own understanding has a limited view — it sees only what is visible and only what has happened so far. God's understanding encompasses the whole story, including the chapters not yet written. Leaning on our own understanding is like navigating with a partial map. Trusting God is choosing the Guide who knows every turn ahead.",prayer:"Father, today I choose deliberately to trust You with my whole heart. In the decisions I face, the uncertainties I carry, and the paths I cannot yet see — I submit them all to You. Make my paths straight. I choose Your wisdom over my own."},
-{reference:"2 Corinthians 12:9",verse:"But he said to me, My grace is sufficient for you, for my power is made perfect in weakness. Therefore I will boast all the more gladly about my weaknesses, so that Christ's power may rest on me.",explanation:"The places where we feel most insufficient are often the very places where God's power shows up most clearly. When we reach the end of what we can do, we finally create space for what God can do. Your weakness today is not a disqualification — it is an invitation for God's power to be displayed in your situation. His grace is genuinely enough.",prayer:"Lord, I acknowledge my weakness honestly before You. I cannot do this in my own strength. But Your Word says Your power is made perfect in weakness, and I am asking You to prove that true in my life today. Let Your grace cover every gap and let Your power rest on me."},
-{reference:"Psalm 46:10",verse:"He says, Be still, and know that I am God; I will be exalted among the nations, I will be exalted in the earth.",explanation:"In a world that rewards constant activity, God issues a countercultural command: be still. Not passive, not defeated — but deliberately, confidently quiet in the knowledge of who He is. When everything around you feels uncertain and out of control, the steadying truth is that God is still God. He has not been displaced, surprised, or overwhelmed.",prayer:"God, I choose stillness right now. I quiet the noise in my mind and I acknowledge that You are God. Nothing that has happened has caught You off guard. Nothing I face has exceeded Your power. Still my anxious heart and fill me with the peace of knowing You are in control."},
-{reference:"John 16:33",verse:"I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world.",explanation:"Jesus was refreshingly honest — He did not promise a trouble-free life. But He promised something far more powerful: peace in the middle of trouble, and a Saviour who has already overcome the very world that troubles us. Whatever you are facing today, you face it as someone on the winning side.",prayer:"Jesus, thank You that You have overcome this world. I take heart today. I face my challenges not as someone abandoned or defeated, but as someone standing with the Victor. Let Your peace be real and present in my heart right now."},
-{reference:"Psalm 121:1-2",verse:"I lift up my eyes to the mountains — where does my help come from? My help comes from the Lord, the Maker of heaven and earth.",explanation:"When we face mountains — towering problems, impossible situations — the question is always the same: where does our help come from? The psalmist answers with beautiful confidence: from the Lord, the very One who made those mountains. The God you are praying to created everything you can see and everything you cannot. No problem you face is larger than its Creator.",prayer:"Lord, I lift my eyes to You. The mountains in my life feel large, but You made them and You are greater. My help comes from You — not from my own efforts, not from circumstances changing. From You alone. I trust You with every mountain I cannot move on my own."},
-{reference:"Ephesians 3:20",verse:"Now to him who is able to do immeasurably more than all we ask or imagine, according to his power that is at work within us.",explanation:"Our prayers are limited by our imagination — but God is not limited by our prayers. He is able to do immeasurably more than anything our minds can construct. This is a call to hold our prayers with open hands, knowing that God's answer may be bigger, better, and more wonderful than what we asked for.",prayer:"God, tonight I bring You my requests and I hold them with open hands, trusting that Your answer will exceed my asking. Do immeasurably more in my life and circumstances than I have dared to believe. To You be the glory."},
-{reference:"Psalm 4:8",verse:"In peace I will lie down and sleep, for you alone, Lord, make me dwell in safety.",explanation:"As the evening comes and the day's concerns press in, God invites you into something rare and precious: genuine peace at rest. Sleep is an act of trust — it is releasing the day and acknowledging that while you rest, God watches. You do not need to solve everything tonight. The same God who held you through today will hold everything through the night.",prayer:"Lord, as this day ends I release it to You — the things that went well and the things that did not. You alone make me dwell in safety. Tonight I choose to trust You with everything I cannot control. Guard my sleep and let me rest knowing You never stop watching over those You love."}
-];
-function getSession(){var h=new Date().getHours();return h>=5&&h<12?'morning':h>=12&&h<18?'afternoon':'evening'}
-function updateSessionBadge(){var badge=document.getElementById('sessionBadge');var s=getSession();var now=new Date();var t=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(s==='morning'){badge.textContent='🌅 Good Morning · '+t;badge.className='session-badge morning'}else if(s==='afternoon'){badge.textContent='☀️ Good Afternoon · '+t;badge.className='session-badge morning'}else{badge.textContent='🌙 Good Evening · '+t;badge.className='session-badge evening'}}
-updateSessionBadge();
-setInterval(updateSessionBadge,60000);
-function updateDateDisplay(){var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];var months=['January','February','March','April','May','June','July','August','September','October','November','December'];var now=new Date();var day=days[now.getDay()];var date=now.getDate();var month=months[now.getMonth()];var year=now.getFullYear();var suffix=date===1||date===21||date===31?'st':date===2||date===22?'nd':date===3||date===23?'rd':'th';var el=document.getElementById('dateDisplay');if(el)el.textContent=day+', '+date+suffix+' '+month+' '+year}
-updateDateDisplay();
-function getTodaysDevotional(session){var now=new Date();var seed=now.getFullYear()*1000+now.getMonth()*31+now.getDate()+(session==='morning'?0:7);return devotionals[seed%devotionals.length]}
-function loadContent(){var btn=document.getElementById('refreshBtn');var icon=document.getElementById('refreshIcon');btn.disabled=true;icon.className='spin';icon.textContent='↻';var session=getSession();document.getElementById('contentArea').innerHTML='<div class="card"><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><p style="margin-top:12px">Seeking your encouragement…</p></div></div>';document.getElementById('shareCard').style.display='none';setTimeout(function(){var parsed=getTodaysDevotional(session);currentContent=parsed;renderContent(parsed,session);btn.disabled=false;icon.className='';icon.textContent='✦';document.getElementById('shareCard').style.display='block'},1200)}
-function renderContent(data,session){document.getElementById('contentArea').innerHTML='<div class="card" style="animation-delay:0.1s"><div class="card-label">📖 Today\'s Verse</div><div class="verse-ref">'+data.reference+' · NIV</div><div class="verse-text">'+data.verse+'</div></div><div class="card" style="animation-delay:0.2s"><div class="card-label">💛 Reflection</div><div class="explanation-text">'+data.explanation+'</div></div><div class="card" style="animation-delay:0.3s"><div class="card-label">🙏 Prayer</div><div class="prayer-text">'+data.prayer+'</div><span class="prayer-amen">— Amen</span></div>'}
-function setReminders(){var m=document.getElementById('morningTime').value;var e=document.getElementById('eveningTime').value;var s=document.getElementById('reminderStatus');var n=document.getElementById('notifNote');if(!m||!e){s.textContent='⚠️ Please set both times.';return}if('Notification' in window){Notification.requestPermission().then(function(p){if(p==='granted'){localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e);scheduleNotifications(m,e);s.style.color='#5a8a5a';s.textContent='✓ Reminders set: Morning '+formatTime(m)+', Evening '+formatTime(e);n.textContent='✅ Notifications active! Keep this tab open for reminders to work.'}else{s.style.color='#b05555';s.textContent='⚠️ Notifications blocked. Please enable in browser settings.'}})}else{s.textContent='📱 Set a phone alarm to visit this app at your chosen times!';localStorage.setItem('grace_morning',m);localStorage.setItem('grace_evening',e)}}
-function scheduleNotifications(m,e){Object.values(scheduledAlarms).forEach(clearTimeout);scheduledAlarms={};function schedule(timeStr,label,emoji){var parts=timeStr.split(':');var h=parseInt(parts[0]);var min=parseInt(parts[1]);var now=new Date();var target=new Date(now.getFullYear(),now.getMonth(),now.getDate(),h,min,0);if(target<=now)target.setDate(target.getDate()+1);var ms=target-now;scheduledAlarms[label]=setTimeout(function(){new Notification('🕊️ Morning & Evening Grace',{body:'It\'s your '+label+' time. Open the app for today\'s verse & prayer 🙏',tag:'grace-'+label});scheduledAlarms[label]=setTimeout(function(){schedule(timeStr,label,emoji)},86400000)},ms)}schedule(m,'morning','🌅');schedule(e,'evening','🌙')}
-function formatTime(t){var parts=t.split(':');var h=parseInt(parts[0]);var m=parts[1];var ampm=h>=12?'PM':'AM';var h12=h%12||12;return h12+':'+m+' '+ampm}
-function buildShareText(){if(!currentContent)return'';return'🕊️ Morning & Evening Grace\n\n📖 '+currentContent.reference+' (NIV)\n"'+currentContent.verse+'"\n\n💛 '+currentContent.explanation+'\n\n🙏 '+currentContent.prayer+'\n\n— Amen\n\nGet your free daily encouragement: https://shikomola.github.io'}
-function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(buildShareText()),'_blank')}
-function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('https://shikomola.github.io'),'_blank')}
-function copyText(){navigator.clipboard.writeText(buildShareText()).then(function(){var btn=event.target;btn.textContent='✓ Copied!';setTimeout(function(){btn.textContent='📋 Copy Text'},2000)})}
-function restoreSavedTimes(){var m=localStorage.getItem('grace_morning');var e=localStorage.getItem('grace_evening');if(m)document.getElementById('morningTime').value=m;if(e)document.getElementById('eveningTime').value=e;if(m&&e&&Notification.permission==='granted'){scheduleNotifications(m,e);document.getElementById('reminderStatus').textContent='✓ Reminders active: Morning '+formatTime(m)+', Evening '+formatTime(e)}}
-restoreSavedTimes();
-loadContent();
-</script>
-</body>
-</html>
- 
-
