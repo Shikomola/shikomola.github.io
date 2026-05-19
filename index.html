@@ -105,7 +105,7 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 <div class="label-morning" id="shareLabel">💌 Share Today's Grace</div>
 <div class="share-row">
 <button class="share-btn btn-wa" onclick="shareWhatsApp()">📱 WhatsApp</button>
-<button class="share-btn btn-copy" onclick="copyText()">📋 Copy</button>
+<button class="share-btn btn-copy" id="copyBtn" onclick="copyText(this)">📋 Copy</button>
 <button class="share-btn btn-fb" onclick="shareFacebook()">🌐 Facebook</button>
 </div>
 </div>
@@ -240,9 +240,39 @@ if(!currentContent)return'';
 var session=isEvening()?'Evening':'Morning';
 return'🕊️ Morning & Evening Grace\n\n📖 '+currentContent.reference+' (NIV)\n"'+currentContent.verse+'"\n\n💛 '+currentContent.explanation+'\n\n🙏 '+currentContent.prayer+'\n\n— Amen\n\nFree daily '+session.toLowerCase()+' devotional: https://shikomola.github.io';
 }
+function copyText(btn){
+var txt=buildShareText();
+if(!txt){alert('Please wait for the verse to load first!');return;}
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(txt).then(function(){
+btn.textContent='✓ Copied!';
+setTimeout(function(){btn.textContent='📋 Copy'},2000);
+}).catch(function(){
+fallbackCopy(txt,btn);
+});
+}else{
+fallbackCopy(txt,btn);
+}
+}
+function fallbackCopy(txt,btn){
+var ta=document.createElement('textarea');
+ta.value=txt;
+ta.style.position='fixed';
+ta.style.opacity='0';
+document.body.appendChild(ta);
+ta.focus();
+ta.select();
+try{
+document.execCommand('copy');
+btn.textContent='✓ Copied!';
+setTimeout(function(){btn.textContent='📋 Copy'},2000);
+}catch(e){
+alert('To share: use the WhatsApp button or long press on the verse text!');
+}
+document.body.removeChild(ta);
+}
 function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(buildShareText()),'_blank')}
 function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('https://shikomola.github.io'),'_blank')}
-function copyText(){navigator.clipboard.writeText(buildShareText()).then(function(){var btn=event.target;btn.textContent='✓ Copied!';setTimeout(function(){btn.textContent='📋 Copy'},2000)})}
 function restoreSavedTimes(){
 var m=localStorage.getItem('grace_morning');var e=localStorage.getItem('grace_evening');
 if(m)document.getElementById('morningTime').value=m;
