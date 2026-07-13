@@ -316,7 +316,7 @@ function closeFavorites(){document.getElementById('favModal').style.display='non
 function speakContent(){
 if(!('speechSynthesis' in window)){alert('Audio playback isn\'t supported in this browser. Try updating Chrome.');return;}
 var btn=document.getElementById('listenBtn');
-if(window.speechSynthesis.speaking){
+if(window.speechSynthesis.speaking||window.speechSynthesis.pending){
 window.speechSynthesis.cancel();
 if(btn)btn.innerHTML='\u{1F50A} Listen';
 return;
@@ -324,12 +324,28 @@ return;
 if(!currentContent)return;
 var text=currentContent.r+'. '+currentContent.v+'. '+currentContent.e+'. Let us pray. '+currentContent.p+'. Amen.';
 var utter=new SpeechSynthesisUtterance(text);
-utter.rate=0.9;
-utter.pitch=1;
+utter.rate=0.9;utter.pitch=1;utter.lang='en-US';
 utter.onend=function(){if(btn)btn.innerHTML='\u{1F50A} Listen';};
 utter.onerror=function(){if(btn)btn.innerHTML='\u{1F50A} Listen';};
+function pickVoiceAndSpeak(){
+var voices=window.speechSynthesis.getVoices();
+if(voices.length===0){
+alert('Your phone has no text-to-speech voice installed. Go to Settings > Accessibility > Text-to-speech output (or search "Text to speech" in Settings) and make sure Google Text-to-Speech Engine is installed and enabled, then try again.');
+if(btn)btn.innerHTML='\u{1F50A} Listen';
+return;
+}
+var v=voices.find(function(x){return x.lang&&x.lang.toLowerCase().indexOf('en')===0;});
+if(v)utter.voice=v;
 window.speechSynthesis.cancel();
 window.speechSynthesis.speak(utter);
+}
+if(window.speechSynthesis.getVoices().length===0){
+window.speechSynthesis.addEventListener('voiceschanged',pickVoiceAndSpeak,{once:true});
+window.speechSynthesis.getVoices();
+setTimeout(function(){if(!window.speechSynthesis.speaking)pickVoiceAndSpeak();},400);
+}else{
+pickVoiceAndSpeak();
+}
 if(btn)btn.innerHTML='\u23F9 Stop';
 }
 function getRealDayOfYear(){var now=new Date();var start=new Date(now.getFullYear(),0,0);var diff=now-start;return Math.floor(diff/86400000);}
