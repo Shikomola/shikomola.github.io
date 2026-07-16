@@ -279,11 +279,11 @@ if(currentContent)renderContent(currentContent);
 }
 function getGreeting(ev){
 var name=getUserName();
-return ev?('Good evening, dear '+name+' \u2014 time for our evening devotion. Welcome. \u{1F319}'):('Good morning, dear '+name+' \u2014 time for our morning devotion. Welcome. \u{1F54A}\uFE0F');
+return ev?('Good evening, dear '+name+' \u2014 time for our evening devotion. Welcome.'):('Good morning, dear '+name+' \u2014 time for our morning devotion. Welcome.');
 }
 function getClosing(ev){
 var name=getUserName();
-return ev?('Good night, dear '+name+'. Rest well in His peace. \u{1F31F}'):('Have a blessed day, dear '+name+'. \u2600\uFE0F');
+return ev?('Good night, dear '+name+'. Rest well in His peace.'):('Have a blessed day, dear '+name+'.');
 }
 function renderContent(data){
 var ev=isEvening();var cc=getCardClass();var lc=getLabelClass();
