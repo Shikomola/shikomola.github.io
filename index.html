@@ -127,6 +127,11 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 <button onclick="resetPreview()" style="padding:8px 16px;border-radius:8px;border:1px solid #ccc;background:white;color:#555;cursor:pointer;font-size:0.8rem">Reset to Today</button>
 </div>
 </div>
+<div class="card-morning" id="nameCard" style="padding:12px 18px;margin-bottom:16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+<span style="font-size:0.78rem;color:#4a3820">&#x270F;&#xFE0F; Your name (optional, for a personal greeting):</span>
+<input type="text" id="userNameInput" placeholder="e.g. Grace" maxlength="30" style="flex:1;min-width:120px;padding:7px 10px;border-radius:8px;border:1px solid #ccc;font-size:0.82rem">
+<button onclick="saveUserName()" style="padding:7px 14px;border-radius:8px;border:none;background:var(--gold,#d4a017);color:white;font-weight:700;font-size:0.75rem;cursor:pointer">Save</button>
+</div>
 <div id="contentArea"><div class="card-morning"><div class="loading-state"><div class="loading-dots dot-morning"><span></span><span></span><span></span></div><p style="margin-top:12px;color:#6a4820">Preparing your encouragement&hellip;</p></div></div></div>
 <div class="card-morning" id="shareCard" style="display:none">
 <div class="label-morning" id="shareLabel">&#x1F48C; Share Today's Grace</div>
@@ -262,7 +267,23 @@ var sl=document.getElementById('shareLabel');if(sl)sl.className=getLabelClass();
 document.getElementById('supportCard').className=cc;
 document.getElementById('reminderCard').className=cc;
 document.getElementById('favBtnCard').className=cc;
+var nc=document.getElementById('nameCard');if(nc)nc.className=cc;
 },900);
+}
+function getUserName(){var n=localStorage.getItem('grace_name');return n&&n.trim()?n.trim():'friend';}
+function saveUserName(){
+var v=document.getElementById('userNameInput').value.trim();
+if(v)localStorage.setItem('grace_name',v);else localStorage.removeItem('grace_name');
+if(document.getElementById('userNameInput'))document.getElementById('userNameInput').value=v;
+if(currentContent)renderContent(currentContent);
+}
+function getGreeting(ev){
+var name=getUserName();
+return ev?('Good evening, dear '+name+' \u2014 time for our evening devotion. Welcome. \u{1F319}'):('Good morning, dear '+name+' \u2014 time for our morning devotion. Welcome. \u{1F54A}\uFE0F');
+}
+function getClosing(ev){
+var name=getUserName();
+return ev?('Good night, dear '+name+'. Rest well in His peace. \u{1F31F}'):('Have a blessed day, dear '+name+'. \u2600\uFE0F');
 }
 function renderContent(data){
 var ev=isEvening();var cc=getCardClass();var lc=getLabelClass();
@@ -270,10 +291,14 @@ var vr=ev?'verse-ref-e':'verse-ref-m';var vt=ev?'verse-e':'verse-m';
 var ex=ev?'explain-e':'explain-m';var pr=ev?'prayer-e':'prayer-m';var am=ev?'amen-e':'amen-m';
 var session=ev?'Evening':'Morning';
 var heart=isFavorited(currentDay,currentSession)?'\u{1F49A}':'\u{1F90D}';
+var greetColor=ev?'#4a9fd4':'#a67c00';
+var uni=document.getElementById('userNameInput');if(uni&&!uni.value)uni.value=(localStorage.getItem('grace_name')||'');
 document.getElementById('contentArea').innerHTML=
+'<div style="text-align:center;font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:1.05rem;color:'+greetColor+';margin-bottom:14px;padding:0 8px">'+getGreeting(ev)+'</div>'+
 '<div class="'+cc+'" style="animation-delay:0.1s"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><div class="'+lc+'">\u{1F4D6} '+session+' Verse</div><div style="display:flex;gap:8px;align-items:center"><span id="listenBtn" onclick="speakContent()" style="cursor:pointer;font-size:1rem;padding:9px 16px;border-radius:14px;background:linear-gradient(135deg,#ff8a5c,#ff5e7e);color:white;font-weight:700;white-space:nowrap;box-shadow:0 3px 10px rgba(255,94,126,.4)">\u{1F50A} Listen</span><span onclick="toggleFavorite()" style="cursor:pointer;padding:8px 14px;border-radius:14px;background:linear-gradient(135deg,#4CAF93,#2d8a6b);display:inline-flex;align-items:center;gap:6px;box-shadow:0 3px 10px rgba(45,138,107,.35)" title="Save to favorites"><span id="favHeart" style="font-size:1.7rem;line-height:1">'+heart+'</span><span style="color:white;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Favorite</span></span></div></div><div class="'+vr+'">'+data.r+' \u00B7 NIV</div><div class="'+vt+'">'+data.v+'</div></div>'+
 '<div class="'+cc+'" style="animation-delay:0.2s"><div class="'+lc+'">\u{1F49B} Reflection</div><div class="'+ex+'">'+data.e+'</div></div>'+
-'<div class="'+cc+'" style="animation-delay:0.3s"><div class="'+lc+'">\u{1F64F} Prayer</div><div class="'+pr+'">'+data.p+'</div><span class="'+am+'">&mdash; Amen</span></div>';
+'<div class="'+cc+'" style="animation-delay:0.3s"><div class="'+lc+'">\u{1F64F} Prayer</div><div class="'+pr+'">'+data.p+'</div><span class="'+am+'">&mdash; Amen</span></div>'+
+'<div style="text-align:center;font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:1.05rem;color:'+greetColor+';margin-top:6px;padding:0 8px">'+getClosing(ev)+'</div>';
 }
 function getFavorites(){try{return JSON.parse(localStorage.getItem('graceFavorites')||'[]');}catch(err){return [];}}
 function saveFavoritesList(list){try{localStorage.setItem('graceFavorites',JSON.stringify(list));}catch(err){}}
@@ -322,7 +347,8 @@ if(btn)btn.innerHTML='\u{1F50A} Listen';
 return;
 }
 if(!currentContent)return;
-var text=currentContent.r+'. '+currentContent.v+'. '+currentContent.e+'. Let us pray. '+currentContent.p+'. Amen.';
+var ev=isEvening();
+var text=getGreeting(ev)+' ... '+currentContent.r+'. '+currentContent.v+'. '+currentContent.e+'. Let us pray. '+currentContent.p+'. Amen. ... '+getClosing(ev);
 var utter=new SpeechSynthesisUtterance(text);
 utter.rate=0.9;utter.pitch=1;utter.lang='en-US';
 utter.onend=function(){if(btn)btn.innerHTML='\u{1F50A} Listen';};
