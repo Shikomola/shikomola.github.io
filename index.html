@@ -148,6 +148,22 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 <div class="card-morning" id="supportCard">
 <div class="label-morning">&#x2615; Support This Ministry</div>
 <p style="font-size:.85rem;color:#4a3820;margin-bottom:14px;line-height:1.65">If this devotional has blessed you today, consider supporting us to keep it free for everyone. Every contribution matters! &#x1F64F;</p>
+<div style="background:rgba(255,252,235,.97);border:1px solid rgba(212,160,23,.3);border-radius:14px;padding:14px;margin-bottom:14px">
+<div style="font-size:.78rem;font-weight:700;color:#a67c00;margin-bottom:8px">&#x1F1F0;&#x1F1EA; Give via M-Pesa</div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+<span style="font-size:.85rem;color:#4a3820">Till Number:</span>
+<span id="tillNum" style="font-weight:700;font-size:1rem;color:#4a3820;letter-spacing:.05em">3544494</span>
+<button onclick="copyTill()" id="copyTillBtn" style="padding:5px 10px;border-radius:8px;border:1px solid #d4a017;background:white;color:#a67c00;font-size:.72rem;font-weight:700;cursor:pointer">Copy</button>
+</div>
+<a href="tel:*334%23" class="support-btn" style="background:linear-gradient(135deg,#2d8a6b,#1f6b52);display:block;text-align:center;margin-bottom:10px">&#x1F4F1; Open M-Pesa to Pay</a>
+<div style="font-size:.72rem;color:#6a5840;line-height:1.7">
+1. Tap "Open M-Pesa to Pay" above, then press call<br>
+2. Select <b>Lipa na M-Pesa</b><br>
+3. Select <b>Buy Goods</b><br>
+4. Enter Till Number: <b>3544494</b> (already copied for you)<br>
+5. Enter the amount, then your M-Pesa PIN
+</div>
+</div>
 <a href="https://ko-fi.com/morningeveninggrace" target="_blank" class="support-btn">&#x2615; Support This Ministry on Ko-fi</a>
 </div>
 <div class="footer">Morning &amp; Evening Grace &middot; Built with &#x2764;&#xFE0F; for busy souls<br><a href="https://ko-fi.com/morningeveninggrace" target="_blank">Support This Ministry</a></div>
@@ -452,6 +468,20 @@ if(!txt){alert('Please wait for the verse to load first!');return;}
 if(navigator.clipboard&&navigator.clipboard.writeText){
 navigator.clipboard.writeText(txt).then(function(){btn.textContent='\u2713 Copied!';setTimeout(function(){btn.textContent='\u{1F4CB} Copy';},2000);}).catch(function(){fallbackCopy(txt,btn);});
 }else{fallbackCopy(txt,btn);}
+}
+function copyTill(){
+var btn=document.getElementById('copyTillBtn');
+var till='3544494';
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(till).then(function(){btn.textContent='\u2713 Copied';setTimeout(function(){btn.textContent='Copy';},2000);}).catch(function(){fallbackCopyTill(till,btn);});
+}else{fallbackCopyTill(till,btn);}
+}
+function fallbackCopyTill(till,btn){
+var ta=document.createElement('textarea');ta.value=till;ta.style.position='fixed';ta.style.opacity='0';
+document.body.appendChild(ta);ta.focus();ta.select();
+try{document.execCommand('copy');btn.textContent='\u2713 Copied';setTimeout(function(){btn.textContent='Copy';},2000);}
+catch(e){alert('Till Number: 3544494');}
+document.body.removeChild(ta);
 }
 function fallbackCopy(txt,btn){
 var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
