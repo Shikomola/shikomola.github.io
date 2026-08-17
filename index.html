@@ -954,7 +954,7 @@ var now=new Date();var target=new Date(now.getFullYear(),now.getMonth(),now.getD
 if(target<=now)target.setDate(target.getDate()+1);
 var ms=target-now;
 scheduledAlarms[label]=setTimeout(function(){
-new Notification('🕊️ Morning & Evening Grace',{body:"It's your "+label+" time. Open the app for today's verse & prayer 🙏',tag:'grace-'+label});
+new Notification('🕊️ Morning & Evening Grace',{body:"It's your "+label+" time. Open the app for today's verse & prayer 🙏",tag:"grace-"+label});
 scheduledAlarms[label]=setTimeout(function(){schedule(timeStr,label)},86400000);
 },ms);
 }
