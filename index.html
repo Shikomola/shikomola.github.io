@@ -966,19 +966,7 @@ if(!currentContent)return'';
 var session=isEvening()?'Evening':'Morning';
 var month=new Date().getMonth();
 var theme=monthlyThemes[month];
-return'🕊️ Morning & Evening Grace
-
-📖 '+currentContent.reference+' (NIV)
-"'+currentContent.verse+'"
-
-💛 '+currentContent.explanation+'
-
-🙏 '+currentContent.prayer+'
-
-— Amen
-
-Theme this month: '+theme+'
-Free daily devotional: https://shikomola.github.io';
+return'🕊️ Morning & Evening Grace\n\n📖 '+currentContent.reference+' (NIV)\n"'+currentContent.verse+'"\n\n💛 '+currentContent.explanation+'\n\n🙏 '+currentContent.prayer+'\n\n— Amen\n\nTheme this month: '+theme+'\nFree daily devotional: https://shikomola.github.io';
 }
 function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(buildShareText()),'_blank')}
 function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('https://shikomola.github.io'),'_blank')}
