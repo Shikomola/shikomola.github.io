@@ -85,6 +85,22 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 .footer a{color:var(--gold-dark);text-decoration:none;font-weight:700}
 .spin{display:inline-block;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.actions-row{display:flex;gap:8px;margin:10px 0}
+.action-btn{flex:1;padding:12px 6px;border:none;border-radius:12px;font-family:'Lato',sans-serif;font-size:.75rem;font-weight:700;cursor:pointer;text-align:center;background:rgba(0,0,0,.06);color:#4a3820}
+.action-btn.evening-action{background:rgba(255,255,255,.08);color:#cfe0f0}
+.action-btn.active-fav{background:#e07a5f;color:#fff}
+.action-btn.active-listen{background:#3a7a4a;color:#fff}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:flex-start;justify-content:center;padding:30px 14px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fdf6e6;border-radius:18px;max-width:520px;width:100%;padding:20px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:#4a3820}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:#4a3820;margin:0 0 14px;padding-right:24px}
+.fav-item,.archive-item{background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:10px;border:1px solid rgba(0,0,0,.06)}
+.fav-item-ref,.archive-item-ref{font-weight:700;color:#8a6a1e;font-size:.85rem;margin-bottom:4px}
+.fav-item-verse,.archive-item-verse{font-size:.85rem;color:#3a2c0f;font-style:italic;line-height:1.5}
+.fav-remove{float:right;background:none;border:none;color:#b05555;font-size:.75rem;cursor:pointer;font-family:sans-serif}
+.archive-day-label{font-family:sans-serif;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9a8a6a;margin:14px 0 6px}
+.empty-note{font-family:sans-serif;font-size:.85rem;color:#8a7a5a;text-align:center;padding:20px 0}
 </style>
 </head>
 <body>
@@ -111,6 +127,29 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 </div>
 <div id="contentArea"><div class="card-morning"><div class="loading-state"><div class="loading-dots dot-morning"><span></span><span></span><span></span></div><p style="margin-top:12px;color:#6a4820">Preparing your encouragement…</p></div></div></div>
 <button class="refresh-btn" id="refreshBtn" onclick="loadContent()" disabled><span id="refreshIcon">✦</span> New Verse & Prayer</button>
+<div class="actions-row" id="actionsRow">
+<button class="action-btn" id="favBtn" onclick="toggleFavorite()">🤍 Favorite</button>
+<button class="action-btn" id="listenBtn" onclick="toggleListen()">🎧 Listen</button>
+<button class="action-btn" id="archiveBtn" onclick="openArchive()">📅 Catch-Up</button>
+</div>
+<div style="text-align:center;margin-top:2px"><a href="javascript:void(0)" onclick="openFavorites()" style="font-family:'Lato',sans-serif;font-size:.72rem;color:#8a6a1e;text-decoration:underline">View saved favorites</a></div>
+
+<div class="modal-overlay" id="favoritesModal">
+<div class="modal-box">
+<button class="modal-close" onclick="closeModal('favoritesModal')">✕</button>
+<div class="modal-title">🤍 My Favorite Verses</div>
+<div id="favoritesList"></div>
+</div>
+</div>
+
+<div class="modal-overlay" id="archiveModal">
+<div class="modal-box">
+<button class="modal-close" onclick="closeModal('archiveModal')">✕</button>
+<div class="modal-title">📅 Catch-Up — Last 5 Days</div>
+<div id="archiveList"></div>
+</div>
+</div>
+
 <div class="card-morning" id="shareCard" style="display:none">
 <div class="label-morning" id="shareLabel">💌 Share Today's Grace</div>
 <div class="share-row">
@@ -938,6 +977,11 @@ document.getElementById('contentArea').innerHTML=
 '<div class="'+cc+'" style="animation-delay:0.1s"><div class="'+lc+'">📖 '+session+' Verse</div><div class="'+vr+'">'+data.reference+' · NIV</div><div class="'+vt+'">'+data.verse+'</div></div>'+
 '<div class="'+cc+'" style="animation-delay:0.2s"><div class="'+lc+'">💛 Reflection</div><div class="'+ex+'">'+data.explanation+'</div></div>'+
 '<div class="'+cc+'" style="animation-delay:0.3s"><div class="'+lc+'">🙏 Prayer</div><div class="'+pr+'">'+data.prayer+'</div><span class="'+am+'">— Amen</span></div>';
+if('speechSynthesis' in window)window.speechSynthesis.cancel();
+isSpeaking=false;
+var lb=document.getElementById('listenBtn');if(lb){lb.textContent='🎧 Listen';lb.className='action-btn'+(ev?' evening-action':'')}
+var ab=document.getElementById('archiveBtn');if(ab)ab.className='action-btn'+(ev?' evening-action':'');
+updateFavBtn();
 }
 function setReminders(){
 var m=document.getElementById('morningTime').value;var e=document.getElementById('eveningTime').value;
@@ -969,6 +1013,64 @@ scheduledAlarms[label]=setTimeout(function(){schedule(timeStr,label)},86400000);
 schedule(m,'morning');schedule(e,'evening');
 }
 function formatTime(t){var parts=t.split(':');var h=parseInt(parts[0]);var m=parts[1];var ampm=h>=12?'PM':'AM';var h12=h%12||12;return h12+':'+m+' '+ampm}
+function getFavId(){var doy=getDayOfYear();var idx=doy%365;return(isEvening()?'evening':'morning')+'-'+idx}
+function getFavorites(){try{return JSON.parse(localStorage.getItem('grace_favorites')||'[]')}catch(e){return[]}}
+function saveFavorites(list){localStorage.setItem('grace_favorites',JSON.stringify(list))}
+function updateFavBtn(){
+var btn=document.getElementById('favBtn');if(!btn||!currentContent)return;
+var id=getFavId();var list=getFavorites();var isFav=list.some(function(f){return f.id===id});
+btn.textContent=isFav?'❤️ Favorited':'🤍 Favorite';
+btn.className='action-btn'+(isEvening()?' evening-action':'')+(isFav?' active-fav':'')
+}
+function toggleFavorite(){
+if(!currentContent){alert('Please wait for the verse to load first!');return}
+var id=getFavId();var list=getFavorites();var idx=list.findIndex(function(f){return f.id===id});
+if(idx>-1){list.splice(idx,1)}
+else{list.unshift({id:id,session:isEvening()?'Evening':'Morning',reference:currentContent.reference,verse:currentContent.verse,explanation:currentContent.explanation,prayer:currentContent.prayer,savedAt:new Date().toLocaleDateString()})}
+saveFavorites(list);updateFavBtn()
+}
+function openFavorites(){renderFavoritesList();document.getElementById('favoritesModal').className='modal-overlay open'}
+function renderFavoritesList(){
+var list=getFavorites();var el=document.getElementById('favoritesList');
+if(list.length===0){el.innerHTML='<div class="empty-note">You have not saved any favorites yet. Tap 🤍 Favorite under any verse to save it here.</div>';return}
+el.innerHTML=list.map(function(f,i){
+return '<div class="fav-item"><button class="fav-remove" onclick="removeFavorite('+i+')">Remove</button><div class="fav-item-ref">'+f.session+' · '+f.reference+' <span style="font-weight:400;color:#9a8a6a">('+f.savedAt+')</span></div><div class="fav-item-verse">"'+f.verse+'"</div></div>'
+}).join('')
+}
+function removeFavorite(i){var list=getFavorites();list.splice(i,1);saveFavorites(list);renderFavoritesList();updateFavBtn()}
+function closeModal(id){document.getElementById(id).className='modal-overlay'}
+
+var isSpeaking=false;
+function toggleListen(){
+if(!currentContent){alert('Please wait for the verse to load first!');return}
+if(!('speechSynthesis' in window)){alert('Sorry, this browser does not support reading verses aloud.');return}
+var btn=document.getElementById('listenBtn');
+if(isSpeaking){window.speechSynthesis.cancel();isSpeaking=false;btn.textContent='🎧 Listen';btn.className='action-btn'+(isEvening()?' evening-action':'');return}
+var text=currentContent.reference+'. '+currentContent.verse+'. Reflection: '+currentContent.explanation+'. Prayer: '+currentContent.prayer+'. Amen.';
+var utter=new SpeechSynthesisUtterance(text);utter.rate=0.92;utter.pitch=1;
+utter.onend=function(){isSpeaking=false;btn.textContent='🎧 Listen';btn.className='action-btn'+(isEvening()?' evening-action':'')};
+utter.onerror=function(){isSpeaking=false;btn.textContent='🎧 Listen';btn.className='action-btn'+(isEvening()?' evening-action':'')};
+window.speechSynthesis.cancel();window.speechSynthesis.speak(utter);
+isSpeaking=true;btn.textContent='⏹ Stop';btn.className='action-btn active-listen'
+}
+
+function openArchive(){renderArchiveList();document.getElementById('archiveModal').className='modal-overlay open'}
+function renderArchiveList(){
+var el=document.getElementById('archiveList');var html='';var doy=getDayOfYear();
+var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+for(var off=1;off<=5;off++){
+var d=new Date();d.setDate(d.getDate()-off);
+var label=days[d.getDay()]+', '+d.getDate()+' '+months[d.getMonth()];
+var idx=((doy-off)%365+365)%365;
+var m=morningDevotionals[idx];var e=eveningDevotionals[idx];
+html+='<div class="archive-day-label">'+label+'</div>';
+html+='<div class="archive-item"><div class="archive-item-ref">🌅 Morning · '+m.reference+'</div><div class="archive-item-verse">"'+m.verse+'"</div></div>';
+html+='<div class="archive-item"><div class="archive-item-ref">🌙 Evening · '+e.reference+'</div><div class="archive-item-verse">"'+e.verse+'"</div></div>';
+}
+el.innerHTML=html
+}
+
 function buildShareText(){
 if(!currentContent)return'';
 var session=isEvening()?'Evening':'Morning';
