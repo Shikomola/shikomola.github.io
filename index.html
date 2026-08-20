@@ -6,6 +6,10 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#8a6a1e">
 <title>Morning & Evening Grace</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
@@ -115,6 +119,10 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 <span class="session-badge badge-morning" id="sessionBadge">Loading...</span>
 <p class="date-display morning-date" id="dateDisplay"></p>
 </div>
+<div id="installBanner" style="display:none;background:linear-gradient(135deg,#2e7d32,#1b5e20);border-radius:14px;padding:14px 16px;margin-bottom:16px;text-align:center;box-shadow:0 4px 18px rgba(27,94,32,.3)">
+<p style="color:#fff;font-family:'Lato',sans-serif;font-size:.82rem;margin:0 0 10px;line-height:1.5">📲 Add this to your Home Screen so it's always one tap away — no browser needed.</p>
+<button id="installBtn" onclick="triggerInstall()" style="background:#fff;color:#1b5e20;border:none;padding:10px 20px;border-radius:10px;font-family:'Lato',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer">Add to Home Screen</button>
+</div>
 <div class="card-morning" id="reminderCard">
 <div class="label-morning">🔔 Reminder Times</div>
 <div class="reminder-row">
@@ -165,8 +173,50 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 <a href="tel:*334*3544494%23" class="mpesa-btn" data-goatcounter-click="mpesa-till-tap">🇰🇪 Support via M-Pesa — Till 3544494</a>
 <div class="mpesa-note">Lipa na M-Pesa · Khaweli Reflections · Any amount welcome 🙏<br>Tap above to open your dialer with the code ready — just press call</div>
 </div>
+
+<div class="card-morning" id="emailCard">
+<div class="label-morning">📧 Never Miss a Devotional</div>
+<p style="font-size:.85rem;color:#4a3820;margin-bottom:14px;line-height:1.65">Get tomorrow's verse, reflection, and prayer delivered straight to your inbox — free, and you can unsubscribe anytime.</p>
+<form id="emailForm" action="https://formspree.io/f/mkjwybyk" method="POST" onsubmit="return handleEmailSignup(event)">
+<input type="email" name="email" id="emailInput" placeholder="you@example.com" required style="width:100%;padding:12px;border:1px solid rgba(0,0,0,.15);border-radius:10px;font-family:'Lato',sans-serif;font-size:.95rem;margin-bottom:10px;box-sizing:border-box">
+<button type="submit" class="support-btn" style="background:linear-gradient(135deg,#8a6a1e,#3a2c0f);border:none;cursor:pointer" id="emailSubmitBtn">✉ Get Daily Verses by Email</button>
+</form>
+<div id="emailStatus" style="font-size:.78rem;text-align:center;margin-top:8px;font-family:'Lato',sans-serif"></div>
+</div>
+
+<div class="card-morning" id="aboutCard">
+<div class="label-morning">🕊️ About This Ministry</div>
+<p style="font-size:.85rem;color:#4a3820;line-height:1.7">Morning & Evening Grace was created to help busy souls begin and end each day rooted in God's Word — especially those who long for daily Scripture but rarely find time for a full Bible study. Every verse, reflection, and prayer is written personally, drawn from years of pastoral ministry and preaching to a local congregation in Kenya. Khaweli Reflections exists simply to help you meet with God, morning and evening, wherever you are.</p>
+</div>
+
 <div class="footer">Morning & Evening Grace · Built with ❤️ for busy souls<br><a href="https://ko-fi.com/morningeveninggrace" target="_blank">Support This Ministry</a></div>
 </div>
+<script>
+function handleEmailSignup(e){
+e.preventDefault();
+var form=document.getElementById('emailForm');
+var btn=document.getElementById('emailSubmitBtn');
+var status=document.getElementById('emailStatus');
+btn.disabled=true;btn.textContent='Sending...';
+fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+.then(function(r){
+if(r.ok){
+status.textContent='✔ Thank you! Check your inbox to confirm.';
+status.style.color='#2e7d32';
+document.getElementById('emailInput').value='';
+}else{
+status.textContent='Something went wrong. Please try again.';
+status.style.color='#b05555';
+}
+})
+.catch(function(){
+status.textContent='Something went wrong. Please check your connection and try again.';
+status.style.color='#b05555';
+})
+.finally(function(){btn.disabled=false;btn.textContent='✉ Get Daily Verses by Email'});
+return false;
+}
+</script>
 <script>
 var currentContent=null;
 var scheduledAlarms={};
@@ -1013,6 +1063,30 @@ scheduledAlarms[label]=setTimeout(function(){schedule(timeStr,label)},86400000);
 schedule(m,'morning');schedule(e,'evening');
 }
 function formatTime(t){var parts=t.split(':');var h=parseInt(parts[0]);var m=parts[1];var ampm=h>=12?'PM':'AM';var h12=h%12||12;return h12+':'+m+' '+ampm}
+var deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+e.preventDefault();
+deferredInstallPrompt=e;
+var alreadyInstalled=window.matchMedia('(display-mode: standalone)').matches;
+if(!alreadyInstalled)document.getElementById('installBanner').style.display='block';
+});
+function triggerInstall(){
+if(!deferredInstallPrompt)return;
+deferredInstallPrompt.prompt();
+deferredInstallPrompt.userChoice.then(function(){
+deferredInstallPrompt=null;
+document.getElementById('installBanner').style.display='none';
+});
+}
+window.addEventListener('appinstalled',function(){
+document.getElementById('installBanner').style.display='none';
+});
+if('serviceWorker' in navigator){
+window.addEventListener('load',function(){
+navigator.serviceWorker.register('sw.js').catch(function(err){console.log('SW registration failed',err)});
+});
+}
+
 function getFavId(){var doy=getDayOfYear();var idx=doy%365;return(isEvening()?'evening':'morning')+'-'+idx}
 function getFavorites(){try{return JSON.parse(localStorage.getItem('grace_favorites')||'[]')}catch(e){return[]}}
 function saveFavorites(list){localStorage.setItem('grace_favorites',JSON.stringify(list))}
