@@ -186,8 +186,8 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 <div class="label-morning">☕ Support This Ministry</div>
 <p style="font-size:.85rem;color:#4a3820;margin-bottom:14px;line-height:1.65">If this devotional has blessed you today, consider supporting us to keep it free for everyone. Every contribution matters! 🙏</p>
 <a href="https://ko-fi.com/morningeveninggrace" target="_blank" class="support-btn">☕ Support This Ministry on Ko-fi</a>
-<button type="button" class="mpesa-btn" onclick="copyText(this)" data-till="3544494" data-goatcounter-click="mpesa-till-tap">💵 Copy Till Number — 3544494</button>
-<div class="mpesa-note">Lipa na M-Pesa · Khaweli Reflections · Any amount welcome 🙏<br>Tap above to copy the Till number, then open your M-Pesa app or dial *334#, choose Buy Goods, and paste it in</div>
+<button type="button" class="mpesa-btn" onclick="copyText(this)" data-till="3544494" data-goatcounter-click="mpesa-till-tap">💵 Support This Ministry via M-Pesa</button>
+<div class="mpesa-note">Lipa na M-Pesa · Khaweli Reflections · Any amount welcome 🙏<br>Tap above — it copies our Till number and opens your dialer. Just paste the number when asked, then enter the amount to complete your gift</div>
 </div>
 
 <div class="footer">Morning & Evening Grace · Built with ❤️ for busy souls<br><a href="https://ko-fi.com/morningeveninggrace" target="_blank">Support This Ministry</a></div>
@@ -1157,7 +1157,23 @@ function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(b
 function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('https://shikomola.github.io'),'_blank')}
 function copyText(btn){
 var till=btn.getAttribute('data-till');
-var txt=till?till:buildShareText();
+if(till){
+function goDial(){window.location.href='tel:*334%23';}
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(till).then(function(){
+btn.textContent='✓ Copied! Opening dialer...';
+setTimeout(goDial,700);
+}).catch(function(){
+fallbackCopy(till,btn);
+setTimeout(goDial,700);
+});
+}else{
+fallbackCopy(till,btn);
+setTimeout(goDial,700);
+}
+return;
+}
+var txt=buildShareText();
 if(!txt){alert('Please wait for the verse to load first!');return;}
 if(navigator.clipboard&&navigator.clipboard.writeText){
 navigator.clipboard.writeText(txt).then(function(){
@@ -1166,6 +1182,7 @@ setTimeout(function(){btn.textContent='📋 Copy'},2000);
 }).catch(function(){fallbackCopy(txt,btn)});
 }else{fallbackCopy(txt,btn)}
 }
+
 function fallbackCopy(txt,btn){
 var ta=document.createElement('textarea');
 ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
