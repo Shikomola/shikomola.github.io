@@ -186,8 +186,8 @@ body{font-family:'Lato',sans-serif;min-height:100vh;color:var(--text-dark);overf
 <div class="label-morning">☕ Support This Ministry</div>
 <p style="font-size:.85rem;color:#4a3820;margin-bottom:14px;line-height:1.65">If this devotional has blessed you today, consider supporting us to keep it free for everyone. Every contribution matters! 🙏</p>
 <a href="https://ko-fi.com/morningeveninggrace" target="_blank" class="support-btn">☕ Support This Ministry on Ko-fi</a>
-<a href="tel:*334*3544494%23" class="mpesa-btn" data-goatcounter-click="mpesa-till-tap">🇰🇪 Support via M-Pesa — Till 3544494</a>
-<div class="mpesa-note">Lipa na M-Pesa · Khaweli Reflections · Any amount welcome 🙏<br>Tap above to open your dialer with the code ready — just press call</div>
+<button type="button" class="mpesa-btn" onclick="copyText(this)" data-till="3544494" data-goatcounter-click="mpesa-till-tap">💵 Copy Till Number — 3544494</button>
+<div class="mpesa-note">Lipa na M-Pesa · Khaweli Reflections · Any amount welcome 🙏<br>Tap above to copy the Till number, then open your M-Pesa app or dial *334#, choose Buy Goods, and paste it in</div>
 </div>
 
 <div class="footer">Morning & Evening Grace · Built with ❤️ for busy souls<br><a href="https://ko-fi.com/morningeveninggrace" target="_blank">Support This Ministry</a></div>
@@ -1156,7 +1156,8 @@ return'🕊️ Morning & Evening Grace\n\n📖 '+currentContent.reference+' (NIV
 function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(buildShareText()),'_blank')}
 function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('https://shikomola.github.io'),'_blank')}
 function copyText(btn){
-var txt=buildShareText();
+var till=btn.getAttribute('data-till');
+var txt=till?till:buildShareText();
 if(!txt){alert('Please wait for the verse to load first!');return;}
 if(navigator.clipboard&&navigator.clipboard.writeText){
 navigator.clipboard.writeText(txt).then(function(){
